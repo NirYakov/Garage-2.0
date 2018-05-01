@@ -38,6 +38,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Car.cs" />
+    <Compile Include="CreatorVehicle.cs" />
+    <Compile Include="ElectricCar.cs" />
+    <Compile Include="ElectricEngine.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />
