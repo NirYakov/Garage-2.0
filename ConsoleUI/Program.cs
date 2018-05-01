@@ -19,7 +19,7 @@ namespace ConsoleUI
         {
             try
             {
-               GarageLogic.ElectricCar stam = GarageLogic.CreatorVehicle.CreateVehicle("bla") as GarageLogic.ElectricCar;
+               GarageLogic.ElectricCar stam = GarageLogic.CreatorVehicle.CreateVehicle("CreateElectricCar,") as GarageLogic.ElectricCar;
                 Console.WriteLine(stam.CarColor);
             }
             catch(Exception ex)
