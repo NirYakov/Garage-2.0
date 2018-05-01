@@ -14,5 +14,10 @@ namespace ConsoleUI
             Console.ReadLine();
             
         }
+
+        public static void Testing()
+        {
+            // Hey.
+        }
     }
 }
