@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public class ElectricEngine
+    internal class ElectricEngine
     {
-        protected float m_BatteryHoursLeft;
-        protected readonly float m_MaxHoursBattery;
+        private float m_BatteryHoursLeft;
+        private readonly float r_MaxHoursBattery;
 
         public ElectricEngine(float i_MaxHoursBattery)
         {
-            m_MaxHoursBattery = i_MaxHoursBattery;
+            r_MaxHoursBattery = i_MaxHoursBattery;
             m_BatteryHoursLeft = 0f;
         }
 
@@ -29,21 +29,20 @@ namespace GarageLogic
         {
             get
             {
-                return m_MaxHoursBattery;
+                return r_MaxHoursBattery;
             }
 
         }
 
         public void ChargingBattery(float i_AmoutOfEnergyToAdd)
         {
-            if ((m_BatteryHoursLeft + i_AmoutOfEnergyToAdd) <= m_MaxHoursBattery)
+            if ((m_BatteryHoursLeft + i_AmoutOfEnergyToAdd) <= r_MaxHoursBattery)
             {
                 m_BatteryHoursLeft += i_AmoutOfEnergyToAdd;
-               // m_PercentOfEnergy = m_BatteryHoursLeft / m_MaxHoursBattery;
             }
             else
             {
-                throw new ValueOutOfRangeException(null, m_MaxHoursBattery - m_BatteryHoursLeft, 0);
+                throw new ValueOutOfRangeException(null, r_MaxHoursBattery - m_BatteryHoursLeft, 0);
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public class Car : Vehicle
+    public abstract class Car : Vehicle
     {
         const float  k_MaxAirPressure = 32;
         const byte k_NumOfWheels = 4;
