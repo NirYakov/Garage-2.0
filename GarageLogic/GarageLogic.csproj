@@ -42,6 +42,11 @@
     <Compile Include="CreatorVehicle.cs" />
     <Compile Include="ElectricCar.cs" />
     <Compile Include="ElectricEngine.cs" />
+    <Compile Include="ElectricMotorcycle.cs" />
+    <Compile Include="Motorcycle.cs" />
+    <Compile Include="PetrolCar.cs" />
+    <Compile Include="PetrolEngin.cs" />
+    <Compile Include="PetrolMotorcycle.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />

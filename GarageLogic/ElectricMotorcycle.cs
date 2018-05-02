@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public class ElectricCar : Car
+    public class ElectricMotorcycle : Motorcycle
     {
-        const float k_MaxHoursBattery = 3.2f;
+        const float k_MaxHoursBattery = 1.8f;
         private ElectricEngine m_ElectricEngine;
-        
-        public ElectricCar(string i_Model, string i_LicenseNumber, string i_CarColor, byte i_NumOfDoors)
-            : base(i_Model, i_LicenseNumber, i_NumOfDoors, i_CarColor)
+
+        public ElectricMotorcycle(string i_Model, string i_LicenseNumber, string i_TypeOfLicense, int i_EngineCapacity)
+            : base (i_Model, i_LicenseNumber, i_TypeOfLicense, i_EngineCapacity)
         {
             m_ElectricEngine = new ElectricEngine(k_MaxHoursBattery);
             m_PercentOfEnergy = 0;
@@ -41,7 +41,6 @@ namespace GarageLogic
             m_PercentOfEnergy = m_ElectricEngine.BatteryHoursLeft / m_ElectricEngine.MaxHoursBattery;
 
         }
-
 
     }
 }

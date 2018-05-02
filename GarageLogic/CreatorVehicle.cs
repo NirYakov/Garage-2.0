@@ -10,20 +10,14 @@ namespace GarageLogic
     {
         public static Vehicle CreateVehicle(string i_Details)
         {
-            ElectricCar vehicleToReturn = null;
-            StringBuilder typeOfVeicle = new StringBuilder();
+            Vehicle vehicleToReturn = null;
+            string typeOfVeicle = i_Details.Substring(0,i_Details.IndexOf(","));
 
-            for (int i = 0 ; i < i_Details.IndexOf(",") ; i++)
+            if (Enum.TryParse<eVeicleType>(typeOfVeicle, out eVeicleType someVehicleType))
             {
-                typeOfVeicle.Append(i_Details[i]);
-
-            }
-
-            if (Enum.TryParse<eCarType>(typeOfVeicle.ToString(), out eCarType someType))
-            {
-                switch(someType)
+                switch(someVehicleType)
                 {
-                    case eCarType.CreateElectricCar:
+                    case eVeicleType.CreateElectricCar:
                         vehicleToReturn = new GarageLogic.ElectricCar("max", "3452", "Blue", (byte)4);
                         break;
                 }
@@ -37,7 +31,7 @@ namespace GarageLogic
            
         }
 
-        public enum eCarType : byte
+        public enum eVeicleType : byte
         {
             CreateElectricCar,
         }
