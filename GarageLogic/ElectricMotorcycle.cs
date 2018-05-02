@@ -9,12 +9,12 @@ namespace GarageLogic
     public class ElectricMotorcycle : Motorcycle
     {
         const float k_MaxHoursBattery = 1.8f;
-        private ElectricEngine m_ElectricEngine;
+        private ElectricEngineOld m_ElectricEngine;
 
         public ElectricMotorcycle(string i_Model, string i_LicenseNumber, string i_TypeOfLicense, int i_EngineCapacity)
             : base (i_Model, i_LicenseNumber, i_TypeOfLicense, i_EngineCapacity)
         {
-            m_ElectricEngine = new ElectricEngine(k_MaxHoursBattery);
+            m_ElectricEngine = new ElectricEngineOld(k_MaxHoursBattery);
             m_PercentOfEnergy = 0;
         }
 

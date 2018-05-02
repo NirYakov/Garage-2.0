@@ -6,44 +6,24 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal class ElectricEngine
-    {
-        private float m_BatteryHoursLeft;
-        private readonly float r_MaxHoursBattery;
-
-        public ElectricEngine(float i_MaxHoursBattery)
-        {
-            r_MaxHoursBattery = i_MaxHoursBattery;
-            m_BatteryHoursLeft = 0f;
+    internal class ElectricEngine : Engine
+    { 
+        public ElectricEngine(float i_MaxEnergyCapacity) : base(i_MaxEnergyCapacity)
+        {            
         }
 
-        public float BatteryHoursLeft
+        public override void FillEnergy(float i_AmonutOfEnergy, string i_EnergyType)
         {
-            get
-            {
-                return m_BatteryHoursLeft;
-            }
-        }
+            const string Electric = "Electric"; // book nir need to done and do private method to get all together.
 
-        public float MaxHoursBattery
-        {
-            get
+            if (Electric == i_EnergyType)
             {
-                return r_MaxHoursBattery;
-            }
-
-        }
-
-        public void ChargingBattery(float i_AmoutOfEnergyToAdd)
-        {
-            if ((m_BatteryHoursLeft + i_AmoutOfEnergyToAdd) <= r_MaxHoursBattery)
-            {
-                m_BatteryHoursLeft += i_AmoutOfEnergyToAdd;
+                checkingAmoutAndFillingEnergy(i_AmonutOfEnergy);
             }
             else
             {
-                throw new ValueOutOfRangeException(null, r_MaxHoursBattery - m_BatteryHoursLeft, 0);
+                throw new ArgumentException();
             }
-        }
+        }      
     }
 }
