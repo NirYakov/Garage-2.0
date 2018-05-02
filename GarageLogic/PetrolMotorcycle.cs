@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public class PetrolCar : Car
+    public class PetrolMotorcycle : Motorcycle
     {
-        const float k_MaxFuelTank = 45f;
+        const float k_MaxFuelTank = 6f;
         private PetrolEngin m_PetrolEngin;
 
-        public PetrolCar(string i_Model, string i_LicenseNumber, string i_CarColor, byte i_NumOfDoors)
-            : base(i_Model, i_LicenseNumber, i_NumOfDoors, i_CarColor)
+        public PetrolMotorcycle(string i_Model, string i_LicenseNumber, string i_TypeOfLicense, int i_EngineCapacity)
+            : base(i_Model, i_LicenseNumber, i_TypeOfLicense, i_EngineCapacity)
         {
-            m_PetrolEngin = new PetrolEngin(PetrolEngin.eFuelType.Octan98, k_MaxFuelTank);
+            m_PetrolEngin = new PetrolEngin(PetrolEngin.eFuelType.Octan96, k_MaxFuelTank);
             m_PercentOfEnergy = 0;
         }
 

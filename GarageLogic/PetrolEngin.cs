@@ -8,14 +8,14 @@ namespace GarageLogic
 {
     internal class PetrolEngin 
     {
-        private readonly float m_MaxFuelTank;
-        private float m_CurrentFuelTank;
+        private readonly float r_MaxFuelTank;
         private readonly eFuelType r_FuelType;
+        private float m_CurrentFuelTank;
 
         public PetrolEngin(eFuelType i_FuelType, float i_MaxFuelTank)
         {
             r_FuelType = i_FuelType;
-            m_MaxFuelTank = i_MaxFuelTank;
+            r_MaxFuelTank = i_MaxFuelTank;
         }
 
         public void Refuel(string i_FuelType, float i_FuelAmout)
@@ -24,14 +24,13 @@ namespace GarageLogic
             {
                 if (currentFuel == r_FuelType)
                 {
-                    if (m_CurrentFuelTank + i_FuelAmout <= m_MaxFuelTank)
+                    if (m_CurrentFuelTank + i_FuelAmout <= r_MaxFuelTank)
                     {
                         m_CurrentFuelTank += i_FuelAmout;
-                        m_PercentOfEnergy = m_CurrentFuelTank / m_MaxFuelTank;
                     }
                     else
                     {
-                        throw new ValueOutOfRangeException(null, m_MaxFuelTank - m_CurrentFuelTank, 0);
+                        throw new ValueOutOfRangeException(null, r_MaxFuelTank - m_CurrentFuelTank, 0);
                     }
                 }
                 else
@@ -57,7 +56,7 @@ namespace GarageLogic
         {
             get
             {
-                return m_MaxFuelTank;
+                return r_MaxFuelTank;
             }
         }
 
