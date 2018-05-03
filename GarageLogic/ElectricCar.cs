@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GarageLogic
-{
+{ 
     internal class ElectricCar : Car
     {
         const float k_MaxHoursBattery = 3.2f;
