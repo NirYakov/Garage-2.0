@@ -44,13 +44,12 @@
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="ElectricMotorcycle.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="FuelCar.cs" />
     <Compile Include="FuelEngine.cs" />
+    <Compile Include="FuelMotorcycle.cs" />
     <Compile Include="FuelTruck.cs" />
     <Compile Include="GarageActs.cs" />
     <Compile Include="Motorcycle.cs" />
-    <Compile Include="PetrolCar.cs" />
-    <Compile Include="PetrolEngin.cs" />
-    <Compile Include="PetrolMotorcycle.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />

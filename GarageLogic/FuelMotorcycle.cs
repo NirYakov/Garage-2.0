@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public class PetrolMotorcycle : Motorcycle
+    public class FuelMotorcycle : Motorcycle
     {
         const float k_MaxFuelTank = 6f;
         private PetrolEngin m_PetrolEngin;
 
-        public PetrolMotorcycle(string i_Model, string i_LicenseNumber, string i_TypeOfLicense, int i_EngineCapacity)
+        public FuelMotorcycle(string i_Model, string i_LicenseNumber, string i_TypeOfLicense, int i_EngineCapacity)
             : base(i_Model, i_LicenseNumber, i_TypeOfLicense, i_EngineCapacity)
         {
             m_PetrolEngin = new PetrolEngin(PetrolEngin.eFuelType.Octan96, k_MaxFuelTank);
