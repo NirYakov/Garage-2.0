@@ -2,24 +2,30 @@
 
 namespace GarageLogic
 {
-    public abstract class Vehicle
+    internal abstract class Vehicle
     {
-        protected readonly string r_Model;
-        protected readonly string r_LicenseNumber;
+        protected readonly string r_Model ,r_LicenseNumber;
         protected float m_PercentOfEnergy = 0;
-        protected List<Wheel> m_ListOfWheels;        
+        protected readonly List<Wheel> m_ListOfWheels;
+        protected readonly Engine r_Engine;
 
         public Vehicle(string i_Model, string i_LicenseNumber, byte i_NumOfWheels)
         {
             r_Model = i_Model;
             r_LicenseNumber = i_LicenseNumber;
-            m_ListOfWheels = new List<Wheel>(i_NumOfWheels);
+            m_ListOfWheels = new List<Wheel>(i_NumOfWheels);            
+        }
+
+        public Engine EngineSystem
+        {
+            get
+            {
+                return r_Engine;
+            }
         }
 
         protected void initWheelsList(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure, byte i_NumOfWheels)
         {
-            
-
             for (int i = 0; i < i_NumOfWheels; i++)
             {
                 m_ListOfWheels.Add(new Wheel(i_ManufacturerName, i_CurrentAirPressure, i_MaxAirPressure));
@@ -50,18 +56,12 @@ namespace GarageLogic
             }
         }
 
-        public List<Wheel> ListOfWheels
+        public void FillMaxWheelsAir()
         {
-            get
+            foreach (Wheel wheel in m_ListOfWheels)
             {
-                return m_ListOfWheels;
-            }
-
-            set // book think about this mybe not need or need to be privat
-            {
-                m_ListOfWheels = value;
-            }
+                wheel.AirInflation(wheel.MaxAirPressure - wheel.CurrentAirPressure);
+            }            
         }
     }
 }
-
