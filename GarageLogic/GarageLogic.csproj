@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
+    <Compile Include="Clint.cs" />
     <Compile Include="CreatorVehicle.cs" />
     <Compile Include="ElectricCar.cs" />
     <Compile Include="ElectricEngine.cs" />
