@@ -13,8 +13,8 @@ namespace GarageLogic
         protected byte m_DoorsCount;
         protected eCarColor m_CarColor;
 
-        public Car(string i_Model, string i_LicenseNumber, byte i_DoorCount, string i_CarColor)
-            : base(i_Model, i_LicenseNumber, k_NumOfWheels)
+        public Car(string i_Model, string i_LicenseNumber, byte i_DoorCount, string i_CarColor , Engine i_EngineToVehicle)
+            : base(i_Model, i_LicenseNumber, k_NumOfWheels, i_EngineToVehicle)
         {
             DoorsCount = i_DoorCount;
             CarColor = i_CarColor;

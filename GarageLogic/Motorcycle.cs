@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public abstract class Motorcycle : Vehicle
+    internal abstract class Motorcycle : Vehicle
     {
         const int k_MaxOfEngineCapacity = 7_000;
         const float k_MaxAirPressure = 30;
@@ -15,8 +15,8 @@ namespace GarageLogic
         protected int m_EngineCapacity;
         protected eTypeOfLicense m_TypeOfLicense;
 
-        public Motorcycle(string i_Model, string i_LicenseNumber, string i_TypeOfLicense, int i_EngineCapacity)
-            : base(i_Model, i_LicenseNumber, k_NumOfWheels)
+        public Motorcycle(string i_Model, string i_LicenseNumber, string i_TypeOfLicense, int i_EngineCapacity , Engine i_EngineToVehicle)
+            : base(i_Model, i_LicenseNumber, k_NumOfWheels, i_EngineToVehicle)
         {
             TypeOfLicense = i_TypeOfLicense;
             EngineCapacity = i_EngineCapacity;

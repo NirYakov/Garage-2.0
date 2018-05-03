@@ -9,18 +9,19 @@ namespace GarageLogic
         protected readonly List<Wheel> m_ListOfWheels;
         protected readonly Engine r_Engine;
 
-        public Vehicle(string i_Model, string i_LicenseNumber, byte i_NumOfWheels)
+        public Vehicle(string i_Model, string i_LicenseNumber, byte i_NumOfWheels , Engine i_EngineToVehicle)
         {
             r_Model = i_Model;
             r_LicenseNumber = i_LicenseNumber;
-            m_ListOfWheels = new List<Wheel>(i_NumOfWheels);            
+            m_ListOfWheels = new List<Wheel>(i_NumOfWheels);
+            r_Engine = i_EngineToVehicle;
         }
 
         public Engine EngineSystem
         {
             get
             {
-                return r_Engine;
+               return r_Engine;
             }
         }
 
@@ -35,9 +36,15 @@ namespace GarageLogic
         public float PercentOfEnergy
         {
             get
-            {
+            {                
                 return m_PercentOfEnergy;
             }
+        }
+
+        public void FillEnergy(float i_AmonutOfEnergy, string i_EnergyType)
+        {
+            EngineSystem.FillEnergy(i_AmonutOfEnergy, i_EnergyType);
+            m_PercentOfEnergy = (100 * (EngineSystem.CurrentEnergyStatus / EngineSystem.MaxEnergyCapacity));
         }
 
         public string Model

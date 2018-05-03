@@ -28,6 +28,14 @@ namespace GarageLogic
                 throw new ArgumentException();
             }
         }
+
+        public string FuelType
+        {
+            get
+            {
+                return r_FuelType.ToString();
+            }
+        }
     }
 
     public enum eFuelType : byte
