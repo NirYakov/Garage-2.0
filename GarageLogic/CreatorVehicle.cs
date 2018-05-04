@@ -10,7 +10,7 @@ namespace GarageLogic
     {
         internal static Vehicle CreateVehicle(eVeicleType i_TypeOfVehicleToCreate, string i_Model, string i_LicenseNumber)
         {
-            Vehicle vehicleToReturn = null;
+            Vehicle vehicleToReturn = null; 
 
             switch (i_TypeOfVehicleToCreate)
             {
