@@ -8,16 +8,17 @@ namespace ConsoleUI
 {
     public class SecretariatOfGarage
     {
-        private GarageLogic.GarageActs m_Garage;
+        private readonly GarageLogic.GarageActs r_Garage;
+        
 
         public SecretariatOfGarage()
         {
-            m_Garage = new GarageLogic.GarageActs();
+            r_Garage = new GarageLogic.GarageActs();
         }
 
         public void OpenGarage()
         {
-            while (true)
+            while (true) // book think about member boolean
             {
                 printMenu();
                 doActionInGarage();
@@ -29,18 +30,20 @@ namespace ConsoleUI
 
         private void doActionInGarage()
         {
+            // book think about  printMenu();
             if (Enum.TryParse<eActionFromUser>(Console.ReadLine(), out eActionFromUser actionToDo))
             {
-               switch(actionToDo)
+                switch (actionToDo)
                 {
                     case eActionFromUser.InsertCarToGarage:
                         createCarAndInsertToGarge();
                         break;
+                    default: // book think about doActionInGarage()
                 }
             }
             else
             {
-                throw new FormatException();
+                // book think about this  throw new FormatException(); or DoActionInGarage();
             }
 
 
@@ -67,7 +70,7 @@ Menu
 7- Exit");
         }
 
-        public enum eActionFromUser : byte
+        private enum eActionFromUser : byte
         {
             InsertCarToGarage = 1,
             ShowListOfCars,
