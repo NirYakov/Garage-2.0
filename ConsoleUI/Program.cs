@@ -21,9 +21,9 @@ namespace ConsoleUI
         {
             try
             {
-                GarageLogic.FuelMotorcycle stam = new GarageLogic.FuelMotorcycle("jj", "09", "A1", 300);
-                Console.WriteLine(stam.EngineCapacity);
-                
+                GarageLogic.GarageActs myGarage = new GarageLogic.GarageActs();
+
+
             }
             catch(Exception ex)
             {
