@@ -8,20 +8,22 @@ namespace ConsoleUI
     public class Program // book add ref to GarageLogic for checking 
     {
         public static void Main()
-        {      
-           
+        {
+
             //Testing();
             TestingYosi();
+           
+
 
             Console.ReadLine();
-            
+
         }
 
         public static void TestingYosi()
         {
             try
             {
-                GarageLogic.GarageActs myGarage = new GarageLogic.GarageActs();
+                
 
 
             }
@@ -35,5 +37,6 @@ namespace ConsoleUI
             Console.ReadLine();
             
         }
+
     }
 }

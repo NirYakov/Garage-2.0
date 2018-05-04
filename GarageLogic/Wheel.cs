@@ -15,8 +15,8 @@ namespace GarageLogic
         public Wheel(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
         {
             this.ManufacturerName = i_ManufacturerName;
-            this.CurrentAirPressure = i_CurrentAirPressure;
             this.MaxAirPressure = i_MaxAirPressure;
+            this.CurrentAirPressure = i_CurrentAirPressure;
         }
 
         public string ManufacturerName
@@ -38,10 +38,17 @@ namespace GarageLogic
             {
                 return m_CurrentAirPressure;
             }
-            // book need to check if is more than max Air Pressure..........
             set
             {
-                m_CurrentAirPressure = value;
+                if(value <= m_MaxAirPressure)
+                {
+                    m_CurrentAirPressure = value;
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(null, m_MaxAirPressure, 0);
+                }
+                
             }
         }
 
