@@ -27,7 +27,7 @@ namespace GarageLogic
                     vehicleToReturn = new FuelMotorcycle(i_Model, i_LicenseNumber);
                         break;
                 case eVeicleType.CreateFuelTruck:
-                    vehicleToReturn = new FuelTruck(i_Model, i_LicenseNumber, 12);
+                    vehicleToReturn = new FuelTrack(i_Model, i_LicenseNumber);
                     break;
 
             }

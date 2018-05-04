@@ -6,24 +6,18 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal abstract class Car : Vehicle
+    public abstract class Car : Vehicle
     {
         const float  k_MaxAirPressure = 32;
         const byte k_NumOfWheels = 4;
         protected byte m_DoorsCount;
         protected eCarColor m_CarColor;
 
-        public Car(string i_Model, string i_LicenseNumber, Engine i_EngineToVehicle)
+        internal Car(string i_Model, string i_LicenseNumber, Engine i_EngineToVehicle)
             : base(i_Model, i_LicenseNumber, k_NumOfWheels, i_EngineToVehicle)
         {
             initWheelsList("Unknown", 0, k_MaxAirPressure, k_NumOfWheels);
-        }
-
-        public override void InitializationOfVariousVehicle(params object[] i_Details)
-        {
-            CarColor = (string)i_Details[0];
-            DoorsCount = (byte)i_Details[1];
-        }
+        }             
 
         public byte DoorsCount
         {
@@ -45,23 +39,16 @@ namespace GarageLogic
             }
         }
 
-        public string CarColor
+        public eCarColor CarColor
         {
             get
             {
-                return m_CarColor.ToString();
+                return m_CarColor;
             }
 
             set
-            {
-                if (Enum.TryParse<eCarColor>(value, out eCarColor someColor))
-                {
-                    m_CarColor = someColor;
-                }
-                else
-                {
-                    throw new FormatException();
-                }
+            {                
+                    m_CarColor = value;               
             }
         }
 

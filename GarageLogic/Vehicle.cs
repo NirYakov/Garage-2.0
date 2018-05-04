@@ -2,14 +2,14 @@
 
 namespace GarageLogic
 {
-    internal abstract class Vehicle
+    public abstract class Vehicle
     {
         protected readonly string r_LicenseNumber, r_Model;
-        protected float m_PercentOfEnergy = 0;
         protected readonly List<Wheel> m_ListOfWheels;
         protected readonly Engine r_Engine;
+        protected float m_PercentOfEnergy = 0;
 
-        public Vehicle(string i_Model, string i_LicenseNumber, byte i_NumOfWheels , Engine i_EngineToVehicle)
+        public Vehicle(string i_LicenseNumber, string i_Model, byte i_NumOfWheels , Engine i_EngineToVehicle)
         {
             r_Model = i_Model;
             r_LicenseNumber = i_LicenseNumber;
@@ -25,7 +25,7 @@ namespace GarageLogic
             }
         }
 
-        public abstract void InitializationOfVariousVehicle(params object[] i_Details);
+        // public abstract void VehicleExtraFillData();
 
         protected void initWheelsList(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure, byte i_NumOfWheels)
         {

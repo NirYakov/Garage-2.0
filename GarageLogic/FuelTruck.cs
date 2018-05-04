@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal class FuelTruck : Vehicle
+    internal class FuelTrack : Vehicle
     {
-        private const float k_MaxFuelTank = 6f, k_MaxAirPressure = 28, k_MaxCapacityTank = 600_000f;
+        private const float k_MaxAirPressure = 28, k_MaxCapacityTank = 600_000f;
         private const byte k_NumOfWheels = 12;        
         private float m_TrunkCapacity;
         private bool m_IsHaveCoolTrunk;
 
-        public FuelTruck(string i_Model, string i_LicenseNumber, byte i_NumOfWheels)
-            : base(i_Model, i_LicenseNumber, i_NumOfWheels)
+        public FuelTrack(string i_Model, string i_LicenseNumber)
+            : base(i_LicenseNumber, i_Model , k_NumOfWheels, new FuelEngine(6f,eFuelType.Soler))
         {
         }
 

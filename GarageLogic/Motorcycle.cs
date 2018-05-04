@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal abstract class Motorcycle : Vehicle
+    public abstract class Motorcycle : Vehicle
     {
         const int k_MaxOfEngineCapacity = 7_000;
         const float k_MaxAirPressure = 30;
@@ -15,17 +15,11 @@ namespace GarageLogic
         protected int m_EngineCapacity;
         protected eTypeOfLicense m_TypeOfLicense;
 
-        public Motorcycle(string i_Model, string i_LicenseNumber, Engine i_EngineToVehicle)
+        internal Motorcycle(string i_Model, string i_LicenseNumber, Engine i_EngineToVehicle)
             : base(i_Model, i_LicenseNumber, k_NumOfWheels, i_EngineToVehicle)
         {
             initWheelsList("Unknown", 0, k_MaxAirPressure, k_NumOfWheels);
-        }
-
-        public override void InitializationOfVariousVehicle(params object[] i_Details)
-        {
-            TypeOfLicense = (string)i_Details[0];
-            EngineCapacity = (int)i_Details[1];
-        }
+        }       
 
         public int EngineCapacity
         {
@@ -34,7 +28,7 @@ namespace GarageLogic
                 return m_EngineCapacity;
             }
 
-            set
+            internal set
             {
                 if (value >= 0 && value <= k_MaxOfEngineCapacity)
                 {
@@ -49,23 +43,16 @@ namespace GarageLogic
             }
         }
 
-        public string TypeOfLicense
+        public eTypeOfLicense TypeOfLicense
         {
             get
             {
-                return m_TypeOfLicense.ToString();
+                return m_TypeOfLicense;
             }
 
             set
-            {
-                if (Enum.TryParse<eTypeOfLicense>(value, out eTypeOfLicense someTypeLicense))
-                {
-                    m_TypeOfLicense = someTypeLicense;
-                }
-                else
-                {
-                    throw new FormatException();
-                }
+            {               
+                    m_TypeOfLicense = value;
             }
         }
 

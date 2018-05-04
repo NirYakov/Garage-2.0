@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GarageLogic;
 
 namespace ConsoleUI
 {
     public class SecretariatOfGarage
     {
         private readonly GarageLogic.GarageActs r_Garage;
-        
+
 
         public SecretariatOfGarage()
         {
@@ -18,67 +19,141 @@ namespace ConsoleUI
 
         public void OpenGarage()
         {
-            while (true) // book think about member boolean
+            const byte outOfChoiseRange = 200;
+            bool quit = false;
+            eGarageAction actionToDo;
+            Console.WriteLine(k_MenuMsg);
+            while (!quit)
             {
-                printMenu();
-                doActionInGarage();
-
-
+                actionToDo = (eGarageAction)(byte.TryParse(Console.ReadLine(), out byte userInputChoise) ? userInputChoise : outOfChoiseRange);
+                Console.Clear();
+                quit = doActionInGarage(actionToDo);
             }
-
         }
 
-        private void doActionInGarage()
+        private bool doActionInGarage(eGarageAction option)
         {
-            // book think about  printMenu();
-            if (Enum.TryParse<eActionFromUser>(Console.ReadLine(), out eActionFromUser actionToDo))
+            bool quit = false;
+            switch (option)
             {
-                switch (actionToDo)
-                {
-                    case eActionFromUser.InsertCarToGarage:
-                        createCarAndInsertToGarge();
-                        break;
-                    default: // book think about doActionInGarage()
-                }
-            }
-            else
-            {
-                // book think about this  throw new FormatException(); or DoActionInGarage();
+                case eGarageAction.Exit:
+                    quit = true;
+                    break;
+                case eGarageAction.InsertCarToGarage:
+                    createNewVehicle();
+                    break;
+                default:
+                    Console.WriteLine("worng input , insert again");
+                    break;
             }
 
-
+            Console.WriteLine(option);
+            return quit;
         }
 
-        private void createCarAndInsertToGarge()
+        private void createNewVehicle()
         {
-            // todo 
+            string[] allVehcleTypes = Enum.GetNames(typeof(eVehicleOption));
+            byte idx = 0;
+            foreach (string vehicleType in allVehcleTypes)
+            {
+                Console.WriteLine("{0}. {1}", idx++, vehicleType);
+            }
+
+           // Vehicle v = Clint.returnFuelCar(); //  nir delete
+
+            Console.WriteLine("Insert your number of choice then press 'enter'");
             
+
+            eVehicleOption vehicleChoise;
+            const byte outOfChoiseRange = 200;
+            vehicleChoise = (eVehicleOption)(byte.TryParse(Console.ReadLine(), out byte userInputChoise) ? userInputChoise : outOfChoiseRange);
+
+            string licenceNum = "123" , modelNum = "456";
+
+            while(r_Garage.IsAlreadyInGarage(licenceNum))
+            {
+                Console.WriteLine("The car in already in the garge , insert anther licence number .");
+                licenceNum = Console.ReadLine();
+            }                      
+
+            Vehicle newVehicle= VehicleCreator.CreateVehicle(vehicleChoise, licenceNum, modelNum);
+
+            switch (vehicleChoise)
+            {
+                case eVehicleOption.FuelCar:
+                case eVehicleOption.ElecticCar:
+                    CarPropertise(newVehicle);
+                    break;
+                case eVehicleOption.FuelMotorcycle:
+                case eVehicleOption.ElectricMotorcycle:
+                    
+                    break;
+                case eVehicleOption.FuelTrack:
+                    
+                    break;
+            }
+
+        }
+        
+        void CarPropertise(Vehicle i_Car)
+        {
+            Console.WriteLine("Insert plase number of doors between 2 - 5 and then press 'enter' (defualt is 2)");
+            if (!byte.TryParse(Console.ReadLine() , out byte numOfDoors ) || !(numOfDoors >= 2 && numOfDoors <= 5))
+            {
+                numOfDoors = 2;
+            }
+
+            Console.WriteLine("Now insert your car color (defualt is Gray)");
+            Console.WriteLine("Insert your number of choice then press 'enter'"); // to do it in maybe another place the Msg. becuse if commeon.
+            
+            string[] allCarColors = Enum.GetNames(typeof(Car.eCarColor));
+            byte idx = 0;
+            foreach (string color in allCarColors)
+            {
+                Console.WriteLine("{0}. {1}", idx++, color);
+            }
+
+            Car.eCarColor chosenColor;
+            const byte outOfChoiseRange = 200;
+            chosenColor = (Car.eCarColor)(byte.TryParse(Console.ReadLine(), out byte userInputChoise) ? userInputChoise : outOfChoiseRange);
+
+            VehicleCreator.CarPropertise(i_Car , numOfDoors , chosenColor);
         }
 
-        private void printMenu()
+        void MotorcyclePropertise(Vehicle i_Moto)
         {
-            Console.WriteLine(
+            VehicleCreator.MotorcyclePropertise();
+        }
+
+        void TrackPropertise(Vehicle i_Track)
+        {
+            VehicleCreator.TrackPropertise();
+        }
+
+        private const string k_MenuMsg =
 @"
 Menu
-==============
-1- insert car to garage
-2- show list of cars 
-3- Change car condition in the garage
-4- To fill the vehicle's air dung to the maximum
-5- To load energy in the garage
-6- View data of car garage
-7- Exit");
-        }
+============== Insert the number of Action you want and then press 'enter ' ==============
+0. Exit
+1. Insert car to garage
+2. List of vehicles in progress , only licence number .  
+3. New vehicle status
+4. Fill untill Max wheel air to vehicle's
+5. Refuel fuel vehicle
+6. Charge electric vehicle
+7. Full data for onwer and vehicle";
 
-        private enum eActionFromUser : byte 
+        private enum eGarageAction : byte
         {
-            InsertCarToGarage = 1,
-            ShowListOfCars,
-            ChangeCarConditionInTheGarage,
-            ToFillTheVehicleWheelsAirToMaximum,
-            ToLoadEnergyInVehicle,
-            ViewDataOfCarInGarage,
-            Exit
+            Exit,
+            InsertCarToGarage,
+            ListOfVehicles,
+            NewCarStatus,
+            FillMaxWheelAir,
+            RefuelFuelVehicle,
+            ChargeElectricVehicle,
+            FullDataForOnwerAndVehicle,
         }
     }
 }

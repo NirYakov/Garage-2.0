@@ -6,23 +6,50 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public class Clint // if needed downgrade accsece.
+    public sealed class Clint
     {
-        private readonly string r_OnwerName;
-        private readonly string r_PhoneNumber;
+        private readonly string r_OnwerName, r_PhoneNumber;        
         private eStatusInGarage m_CarStatus = eStatusInGarage.InRepair;
-        private Vehicle m_Vehicle;
+        private Vehicle r_Vehicle;
 
-        public Clint(string r_LicenseNumber,string r_Model, string i_OnwerName ,string i_PhoneNumber)
+        internal Clint(string r_LicenseNumber, string r_Model, Vehicle m_Vehicle, string i_OnwerName, string i_PhoneNumber)
         {
             r_OnwerName = i_OnwerName;
             r_PhoneNumber = i_PhoneNumber;
-            m_Vehicle;
+            r_Vehicle = m_Vehicle;
         }
+
+        public Vehicle Vehicle
+        {
+            get
+            {
+                return r_Vehicle;
+            }
+        }
+
+        public eStatusInGarage CarStatus
+        {
+            get
+            {
+                return m_CarStatus;
+            }
+
+            set
+            {
+                m_CarStatus = value;
+            }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        // static public Vehicle returnFuelCar() { return new FuelCar("123","456"); } // nir delete 
 
         public enum eStatusInGarage
         {
-            InRepair ,
+            InRepair,
             DoneRepair,
             Paid
         }

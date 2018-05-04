@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal abstract class Engine
+    public abstract class Engine
     {
         protected readonly float r_MaxEnergyCapacity;
         protected float m_CurrentEnergyStatus = 0;

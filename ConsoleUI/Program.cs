@@ -11,11 +11,13 @@ namespace ConsoleUI
         {
 
             //Testing();
-            TestingYosi();
-           
+           // TestingYosi();
+
+            SecretariatOfGarage garage = new SecretariatOfGarage();
+            garage.OpenGarage();
 
 
-            Console.ReadLine();
+           // Console.ReadLine();
 
         }
 
