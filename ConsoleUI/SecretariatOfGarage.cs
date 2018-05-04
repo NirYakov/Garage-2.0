@@ -70,7 +70,7 @@ Menu
 7- Exit");
         }
 
-        private enum eActionFromUser : byte
+        private enum eActionFromUser : byte 
         {
             InsertCarToGarage = 1,
             ShowListOfCars,
