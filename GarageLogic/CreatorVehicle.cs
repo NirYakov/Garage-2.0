@@ -6,34 +6,42 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public static class CreatorVehicle
+    internal static class CreatorVehicle
     {
-        public static Vehicle CreateVehicle(string i_Details)
+        internal static Vehicle CreateVehicle(eVeicleType i_TypeOfVehicleToCreate, string i_Model, string i_LicenseNumber)
         {
             Vehicle vehicleToReturn = null;
-            string typeOfVeicle = i_Details.Substring(0,i_Details.IndexOf(","));
 
-            if (Enum.TryParse<eVeicleType>(typeOfVeicle, out eVeicleType someVehicleType))
+            switch (i_TypeOfVehicleToCreate)
             {
-                switch(someVehicleType)
-                {
-                    case eVeicleType.CreateElectricCar:
-                        vehicleToReturn = new GarageLogic.ElectricCar("max", "3452", "Blue", (byte)4);
+                case eVeicleType.CreateElectricCar:
+                    vehicleToReturn = new ElectricCar(i_Model, i_LicenseNumber, "Blue", (byte)4);
+                    break;
+                case eVeicleType.CreateFuelCar:
+                    vehicleToReturn = new FuelCar(i_Model, i_LicenseNumber, "Blue", (byte)4);
+                    break;
+                case eVeicleType.CreateElectricMotorcycle:
+                    vehicleToReturn = new ElectricMotorcycle(i_Model, i_LicenseNumber, "A1", 500);
+                    break;
+                case eVeicleType.CreateFuelMotorcycle:
+                    vehicleToReturn = new FuelMotorcycle(i_Model, i_LicenseNumber, "A1", 500);
                         break;
-                }
-                return vehicleToReturn;
+                case eVeicleType.CreateFuelTruck:
+                    vehicleToReturn = new FuelTruck(i_Model, i_LicenseNumber, 12);
+                    break;
+
             }
-            else
-            {
-                throw new FormatException();
-            }
-                      
-           
+            return vehicleToReturn;
+            
         }
 
         public enum eVeicleType : byte
         {
             CreateElectricCar,
+            CreateElectricMotorcycle,
+            CreateFuelCar,
+            CreateFuelMotorcycle,
+            CreateFuelTruck
         }
     }
 }
