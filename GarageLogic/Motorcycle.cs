@@ -23,6 +23,12 @@ namespace GarageLogic
             initWheelsList("Unknown", 0, k_MaxAirPressure, k_NumOfWheels);
         }
 
+        public override void InitializationOfVariousVehicle(params object[] i_Details)
+        {
+            TypeOfLicense = (string)i_Details[0];
+            EngineCapacity = (int)i_Details[1];
+        }
+
         public int EngineCapacity
         {
             get
