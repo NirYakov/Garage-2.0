@@ -28,7 +28,7 @@ namespace GarageLogic
                 return m_DoorsCount;
             }
 
-            protected set
+            internal set
             {
                 if (value >= 2 && value <= 5)
                 {

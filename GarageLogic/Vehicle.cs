@@ -4,7 +4,7 @@ namespace GarageLogic
 {
     internal abstract class Vehicle
     {
-        protected readonly string r_Model ,r_LicenseNumber;
+        protected readonly string r_LicenseNumber, r_Model;
         protected float m_PercentOfEnergy = 0;
         protected readonly List<Wheel> m_ListOfWheels;
         protected readonly Engine r_Engine;
