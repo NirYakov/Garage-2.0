@@ -14,8 +14,48 @@ namespace GarageLogic
         {
         }
 
-        
+        public void ChargeBattary(string i_LicenseNum, float i_MinuteToCharge)
+        {
+            const string electric = "Electric";          
 
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            {
+                throw new Exception("Vehicle doesn't exists");
+            }
+
+            clint.Vehicle.FillEnergy(i_MinuteToCharge, electric);
+        }
+
+        public void RefuelVehicle(string i_LicenseNum , float i_FuelAmount ,eFuelType i_FuelType) // Book tosee and fix the fuels fill.
+        {
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            {
+                throw new Exception("Vehicle doesn't exists");
+            }
+
+            clint.Vehicle.FillEnergy(i_FuelAmount, i_FuelType.ToString());           
+        }
+
+        public void FillMaxWheelsAir(string i_LicenseNum)
+        {
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            {
+                throw new Exception("Vehicle doesn't exists");
+            }
+
+            clint.Vehicle.FillMaxWheelsAir();
+        }
+
+        public void ChangeVehicleStatus(string i_LicenseNum, Clint.eStatusInGarage i_NewStatus)
+        {
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            {
+                throw new Exception("Vehicle doesn't exists");
+            }
+
+            clint.CarStatus = i_NewStatus;           
+        }
+        // book to change to do this in PascalCase
         public string msgFullDetailsVehicle(string i_LicenseNum)
         {
             if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
