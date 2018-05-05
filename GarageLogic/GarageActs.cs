@@ -56,7 +56,7 @@ namespace GarageLogic
             clint.CarStatus = i_NewStatus;           
         }
         // book to change to do this in PascalCase
-        public string msgFullDetailsVehicle(string i_LicenseNum)
+        public string MsgFullDetailsVehicle(string i_LicenseNum)
         {
             if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
             {

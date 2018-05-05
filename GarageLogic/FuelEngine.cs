@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GarageLogic
 {
@@ -25,7 +21,7 @@ namespace GarageLogic
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Not the right Fuel type.");
             }
         }
 
@@ -36,14 +32,6 @@ namespace GarageLogic
                 return r_FuelType.ToString();
             }
         }
-    }
-
-    public enum eFuelType : byte
-    {
-        Soler,
-        Octan95,
-        Octan96,
-        Octan98
-    }
+    }    
 }
 

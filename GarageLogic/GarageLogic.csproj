@@ -41,6 +41,7 @@
     <Compile Include="Car.cs" />
     <Compile Include="Clint.cs" />
     <Compile Include="CreatorVehicle.cs" />
+    <Compile Include="eFuelType.cs" />
     <Compile Include="ElectricCar.cs" />
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="ElectricMotorcycle.cs" />

@@ -33,7 +33,7 @@ namespace GarageLogic
             return newVehicle;
         }
 
-        public static void VehiclePropertise(Vehicle i_Vehicle,string i_ManufacturerName, float i_CurrentAirPressure)
+        public static void VehiclePropertise(Vehicle i_Vehicle, string i_ManufacturerName, float i_CurrentAirPressure)
         {
             i_Vehicle.FillAirInWheels(i_CurrentAirPressure);
             i_Vehicle.FillNameOfWheels(i_ManufacturerName);
