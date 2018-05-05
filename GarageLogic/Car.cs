@@ -13,8 +13,8 @@ namespace GarageLogic
         protected byte m_DoorsCount;
         protected eCarColor m_CarColor;
 
-        internal Car(string i_Model, string i_LicenseNumber, Engine i_EngineToVehicle)
-            : base(i_Model, i_LicenseNumber, k_NumOfWheels, i_EngineToVehicle)
+        internal Car(string i_LicenseNumber, string i_Model, Engine i_EngineToVehicle)
+            : base(i_LicenseNumber, i_Model, k_NumOfWheels, i_EngineToVehicle)
         {
             initWheelsList("Unknown", 0, k_MaxAirPressure, k_NumOfWheels);
         }             

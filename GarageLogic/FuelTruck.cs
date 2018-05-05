@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal class FuelTrack : Vehicle
+    internal class FuelTrack : Vehicle // need change name of cs to FuelTrack
     {
         private const float k_MaxAirPressure = 28, k_MaxCapacityTank = 600_000f;
         private const byte k_NumOfWheels = 12;        
         private float m_TrunkCapacity;
         private bool m_IsHaveCoolTrunk;
 
-        public FuelTrack(string i_Model, string i_LicenseNumber)
+        public FuelTrack(string i_LicenseNumber, string i_Model)
             : base(i_LicenseNumber, i_Model , k_NumOfWheels, new FuelEngine(6f,eFuelType.Soler))
         {
         }

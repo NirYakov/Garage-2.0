@@ -10,8 +10,8 @@ namespace GarageLogic
     {
         const float k_MaxFuelTank = 45f;
 
-        public FuelCar(string i_Model, string i_LicenseNumber)
-            : base(i_Model, i_LicenseNumber, new FuelEngine(k_MaxFuelTank,eFuelType.Octan98))
+        public FuelCar(string i_LicenseNumber, string i_Model)
+            : base(i_LicenseNumber, i_Model, new FuelEngine(k_MaxFuelTank,eFuelType.Octan98))
         {
         }
         

@@ -10,8 +10,8 @@ namespace GarageLogic
     {
         const float k_MaxHoursBattery = 3.2f;
         
-        public ElectricCar(string i_Model, string i_LicenseNumber)
-            : base(i_Model, i_LicenseNumber, new ElectricEngine(k_MaxHoursBattery))
+        public ElectricCar(string i_LicenseNumber, string i_Model)
+            : base(i_LicenseNumber, i_Model, new ElectricEngine(k_MaxHoursBattery))
         {
         }
 
