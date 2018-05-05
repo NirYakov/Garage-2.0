@@ -105,9 +105,24 @@ namespace ConsoleUI
             clientName = Console.ReadLine();
             Console.WriteLine("insert your phone number");
             clientPhoneNumber = Console.ReadLine();
-            r_Garage.InsertNewClint(new Clint(licenceNum, modelNum, newVehicle, clientName, clientPhoneNumber));
+            r_Garage.InsertNewClint(new Clint(newVehicle, clientName, clientPhoneNumber));
         }
-        
+
+        void VehiclePropertise(Vehicle i_Vehicle)
+        {
+            string manufacturerNameOfWheels;
+            Console.WriteLine("insert name of manufacturer of wheels");
+            manufacturerNameOfWheels = Console.ReadLine();
+            Console.WriteLine("insert air pressure that you want, if is more than maximum air pressure will be 0");
+            if (!float.TryParse(Console.ReadLine(), out float airPressure) || !(airPressure >= 0 && airPressure <= i_Vehicle.MaxAirInWheels))
+            {
+                airPressure = 0;
+            }
+
+            VehicleCreator.VehiclePropertise(i_Vehicle, manufacturerNameOfWheels, airPressure);
+        }
+
+
         void CarPropertise(Vehicle i_Car) // its private ? -> need to be carPropertise
         {
             Console.WriteLine("Insert plase number of doors between 2 - 5 and then press 'enter' (defualt is 2)");
