@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Text;
+using System;
 
 namespace GarageLogic
 {
@@ -71,6 +73,17 @@ namespace GarageLogic
             {
                 wheel.AirInflation(wheel.MaxAirPressure - wheel.CurrentAirPressure);
             }            
+        }
+
+        public override string ToString()
+        {
+            StringBuilder wheels = new StringBuilder();
+            foreach (Wheel wheel in m_ListOfWheels)
+            {
+                wheels.Append(Environment.NewLine + wheel);
+            }
+            return string.Format(
+@"License Number:{0}  ,Model is:{1} ,the wheels is:{2}" , r_LicenseNumber, r_Model, wheels);
         }
     }
 }

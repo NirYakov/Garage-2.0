@@ -56,7 +56,13 @@ namespace GarageLogic
             }
         }
 
-        // book i not sure about all use in enum check this 
+        public override string ToString()
+        {
+            return string.Format(
+@"{0}
+the engine capacity is:{1} , the type of license is:{2},", base.ToString(), m_EngineCapacity, m_TypeOfLicense);
+        }
+        
         public enum eTypeOfLicense : byte
         {
             A,

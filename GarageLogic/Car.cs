@@ -52,6 +52,13 @@ namespace GarageLogic
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format(
+@"{0}
+the car color is:{1} , the count of doors is:{2},", base.ToString(), m_CarColor,m_DoorsCount);
+        }
+
         public enum eCarColor : byte
         {
             Gray,
