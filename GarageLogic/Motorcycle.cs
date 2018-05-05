@@ -59,7 +59,7 @@ namespace GarageLogic
         // book i not sure about all use in enum check this 
         public enum eTypeOfLicense : byte
         {
-            A = 1,
+            A,
             A1,
             B1,
             B2

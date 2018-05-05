@@ -70,12 +70,22 @@ namespace ConsoleUI
             vehicleChoise = (eVehicleOption)(byte.TryParse(Console.ReadLine(), out byte userInputChoise) ? userInputChoise : outOfChoiseRange);
 
             string licenceNum = "123" , modelNum = "456";
+            // yosi start
+            // question- if vehicleChoise = outOfChoiseRange what happend?
+            Console.WriteLine("insert the licence number" );
+            licenceNum = Console.ReadLine();
+            // yosi end
 
-            while(r_Garage.IsAlreadyInGarage(licenceNum))
+            while (r_Garage.IsAlreadyInGarage(licenceNum))
             {
                 Console.WriteLine("The car in already in the garge , insert anther licence number .");
                 licenceNum = Console.ReadLine();
-            }                      
+            }
+
+            // yosi start 
+            Console.WriteLine("insert the model of car");
+            modelNum = Console.ReadLine(); // need change to modelName ?
+            // yosi end 
 
             Vehicle newVehicle= VehicleCreator.CreateVehicle(vehicleChoise, licenceNum, modelNum);
 
@@ -87,7 +97,9 @@ namespace ConsoleUI
                     break;
                 case eVehicleOption.FuelMotorcycle:
                 case eVehicleOption.ElectricMotorcycle:
-                    
+                    // yosi start
+                    MotorcyclePropertise(newVehicle);
+                    // yosi end 
                     break;
                 case eVehicleOption.FuelTrack:
                     
@@ -123,11 +135,46 @@ namespace ConsoleUI
 
         void MotorcyclePropertise(Vehicle i_Moto)
         {
-            VehicleCreator.MotorcyclePropertise();
+            // yosi start
+            Console.WriteLine("Insert plase Engine Capacity between 0 - 7,000 and then press 'enter' (defualt is 500)");
+            if (!int.TryParse(Console.ReadLine(), out int engineCapacity) || !(engineCapacity >= 0 && engineCapacity <= 7_000))
+            {
+                engineCapacity = 500;
+            }
+
+            Console.WriteLine("choos type of license   (difult is A)");
+            string[] allTypeOfLicense = Enum.GetNames(typeof(Motorcycle.eTypeOfLicense));
+            byte idx = 0;
+            foreach (string typeLicense in allTypeOfLicense)
+            {
+                Console.WriteLine("{0}. {1}", idx++, typeLicense);
+            }
+
+            Motorcycle.eTypeOfLicense typeOfLicense;
+            if ( !(Enum.TryParse<Motorcycle.eTypeOfLicense>(Console.ReadLine(), out typeOfLicense)) || ! ((byte)typeOfLicense < idx) )
+            {
+                typeOfLicense = Motorcycle.eTypeOfLicense.A;
+            }
+            // yosi end
+            VehicleCreator.MotorcyclePropertise(i_Moto,engineCapacity,typeOfLicense);
         }
 
         void TrackPropertise(Vehicle i_Track)
         {
+            //yosi start
+            //m_IsHaveCoolTrunk
+            Console.WriteLine("Insert plase Trunk Capacity between 0 - 600,000 and then press 'enter' (defualt is 100,000)");
+            if (!float.TryParse(Console.ReadLine(), out float trunkCapacity) || !(trunkCapacity >= 0 && trunkCapacity <= 600_000f))
+            {
+                trunkCapacity = 100_000f;
+            }
+            Console.WriteLine("insert 1 is you want Trunk With Cooling Cell another for Trunk less Cooling");
+            if (!bool.TryParse(Console.ReadLine(), out bool isHaveCoolTrunk))
+            {
+                isHaveCoolTrunk  false;
+            }
+
+
             VehicleCreator.TrackPropertise();
         }
 
