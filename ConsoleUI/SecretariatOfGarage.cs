@@ -70,23 +70,19 @@ namespace ConsoleUI
             vehicleChoise = (eVehicleOption)(byte.TryParse(Console.ReadLine(), out byte userInputChoise) ? userInputChoise : outOfChoiseRange);
 
             string licenceNum = "123" , modelNum = "456";
-            // yosi start
-            // question- if vehicleChoise = outOfChoiseRange what happend?
+            // book question- if vehicleChoise = outOfChoiseRange what happend?
             Console.WriteLine("insert the licence number" );
             licenceNum = Console.ReadLine();
-            // yosi end
-
+            
             while (r_Garage.IsAlreadyInGarage(licenceNum))
             {
                 Console.WriteLine("The car in already in the garge , insert anther licence number .");
                 licenceNum = Console.ReadLine();
             }
-
-            // yosi start 
+ 
             Console.WriteLine("insert the model of car");
-            modelNum = Console.ReadLine(); // need change to modelName ?
-            // yosi end 
-
+            modelNum = Console.ReadLine(); //book need change to modelName ?
+            
             Vehicle newVehicle= VehicleCreator.CreateVehicle(vehicleChoise, licenceNum, modelNum);
 
             switch (vehicleChoise)
@@ -97,18 +93,19 @@ namespace ConsoleUI
                     break;
                 case eVehicleOption.FuelMotorcycle:
                 case eVehicleOption.ElectricMotorcycle:
-                    // yosi start
                     MotorcyclePropertise(newVehicle);
-                    // yosi end 
                     break;
                 case eVehicleOption.FuelTrack:
-                    // yosi start
                     TrackPropertise(newVehicle);
-                    // yosi end
-
                     break;
             }
 
+            string clientName, clientPhoneNumber;
+            Console.WriteLine("insert your name");
+            clientName = Console.ReadLine();
+            Console.WriteLine("insert your phone number");
+            clientPhoneNumber = Console.ReadLine();
+            r_Garage.InsertNewClint(new Clint(licenceNum, modelNum, newVehicle, clientName, clientPhoneNumber));
         }
         
         void CarPropertise(Vehicle i_Car) // its private ? -> need to be carPropertise
@@ -138,7 +135,6 @@ namespace ConsoleUI
 
         void MotorcyclePropertise(Vehicle i_Moto)
         {
-            // yosi start
             Motorcycle.eTypeOfLicense typeOfLicense;
 
             Console.WriteLine("Insert plase Engine Capacity between 0 - 7,000 and then press 'enter' (defualt is 500)");
@@ -161,13 +157,10 @@ namespace ConsoleUI
             }
 
             VehicleCreator.MotorcyclePropertise(i_Moto, engineCapacity, typeOfLicense);
-            // VehicleCreator.MotorcyclePropertise();
-            // yosi end
         }
 
         void TrackPropertise(Vehicle i_Track)
         {
-            //yosi start
             Console.WriteLine("Insert plase Trunk Capacity between 0 - 600,000 and then press 'enter' (defualt is 100,000)");
             if (!float.TryParse(Console.ReadLine(), out float trunkCapacity) || !(trunkCapacity >= 0 && trunkCapacity <= 600_000f))
             {
@@ -181,8 +174,6 @@ namespace ConsoleUI
             }
 
             VehicleCreator.TrackPropertise(i_Track, trunkCapacity, isHaveCoolTrunk);
-           // VehicleCreator.TrackPropertise();
-            //yosi end 
         }
 
         private const string k_MenuMsg =
