@@ -102,13 +102,16 @@ namespace ConsoleUI
                     // yosi end 
                     break;
                 case eVehicleOption.FuelTrack:
-                    
+                    // yosi start
+                    TrackPropertise(newVehicle);
+                    // yosi end
+
                     break;
             }
 
         }
         
-        void CarPropertise(Vehicle i_Car)
+        void CarPropertise(Vehicle i_Car) // its private ? -> need to be carPropertise
         {
             Console.WriteLine("Insert plase number of doors between 2 - 5 and then press 'enter' (defualt is 2)");
             if (!byte.TryParse(Console.ReadLine() , out byte numOfDoors ) || !(numOfDoors >= 2 && numOfDoors <= 5))
@@ -136,6 +139,8 @@ namespace ConsoleUI
         void MotorcyclePropertise(Vehicle i_Moto)
         {
             // yosi start
+            Motorcycle.eTypeOfLicense typeOfLicense;
+
             Console.WriteLine("Insert plase Engine Capacity between 0 - 7,000 and then press 'enter' (defualt is 500)");
             if (!int.TryParse(Console.ReadLine(), out int engineCapacity) || !(engineCapacity >= 0 && engineCapacity <= 7_000))
             {
@@ -144,38 +149,40 @@ namespace ConsoleUI
 
             Console.WriteLine("choos type of license   (difult is A)");
             string[] allTypeOfLicense = Enum.GetNames(typeof(Motorcycle.eTypeOfLicense));
-            byte idx = 0;
+            byte idx = 0; // book why not i  (or index)?
             foreach (string typeLicense in allTypeOfLicense)
             {
                 Console.WriteLine("{0}. {1}", idx++, typeLicense);
             }
 
-            Motorcycle.eTypeOfLicense typeOfLicense;
-            if ( !(Enum.TryParse<Motorcycle.eTypeOfLicense>(Console.ReadLine(), out typeOfLicense)) || ! ((byte)typeOfLicense < idx) )
+            if (!Enum.TryParse<Motorcycle.eTypeOfLicense>(Console.ReadLine(), out typeOfLicense) || !((byte)typeOfLicense < idx))
             {
                 typeOfLicense = Motorcycle.eTypeOfLicense.A;
             }
+
+            VehicleCreator.MotorcyclePropertise(i_Moto, engineCapacity, typeOfLicense);
+            // VehicleCreator.MotorcyclePropertise();
             // yosi end
-            VehicleCreator.MotorcyclePropertise(i_Moto,engineCapacity,typeOfLicense);
         }
 
         void TrackPropertise(Vehicle i_Track)
         {
             //yosi start
-            //m_IsHaveCoolTrunk
             Console.WriteLine("Insert plase Trunk Capacity between 0 - 600,000 and then press 'enter' (defualt is 100,000)");
             if (!float.TryParse(Console.ReadLine(), out float trunkCapacity) || !(trunkCapacity >= 0 && trunkCapacity <= 600_000f))
             {
                 trunkCapacity = 100_000f;
             }
-            Console.WriteLine("insert 1 is you want Trunk With Cooling Cell another for Trunk less Cooling");
+
+            Console.WriteLine("insert true (any way) if you want Trunk With Cooling Cell, another for Trunk less Cooling Cell");
             if (!bool.TryParse(Console.ReadLine(), out bool isHaveCoolTrunk))
             {
-                isHaveCoolTrunk  false;
+                isHaveCoolTrunk = false;
             }
 
-
-            VehicleCreator.TrackPropertise();
+            VehicleCreator.TrackPropertise(i_Track, trunkCapacity, isHaveCoolTrunk);
+           // VehicleCreator.TrackPropertise();
+            //yosi end 
         }
 
         private const string k_MenuMsg =
