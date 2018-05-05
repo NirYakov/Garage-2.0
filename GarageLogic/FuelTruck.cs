@@ -51,5 +51,13 @@ namespace GarageLogic
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format(
+@"{0}
+type of fule is:{1}  , Fuel status is:{2}  , trunk capacity is:{3} ,HaveCoolTrunk:{4} "
+, base.ToString(), eFuelType.Soler, m_PercentOfEnergy, m_TrunkCapacity, m_IsHaveCoolTrunk);
+        }
     }
 }

@@ -14,6 +14,12 @@ namespace GarageLogic
             : base (i_LicenseNumber, i_Model, new ElectricEngine(k_MaxHoursBattery))
         {
         }
-        
+
+        public override string ToString()
+        {
+            return string.Format(
+ @"{0}
+Battery status:{1}", base.ToString(), m_PercentOfEnergy);
+        }
     }
 }

@@ -14,6 +14,12 @@ namespace GarageLogic
             : base(i_LicenseNumber, i_Model, new FuelEngine(k_MaxFuelTank,eFuelType.Octan98))
         {
         }
-        
+
+        public override string ToString()
+        {
+            return string.Format(
+@"{0}
+type of fule is:{1}  , Fuel status is:{2}", base.ToString(), eFuelType.Octan98, m_PercentOfEnergy);
+        }
     }
 }
