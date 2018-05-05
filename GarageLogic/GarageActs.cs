@@ -14,9 +14,85 @@ namespace GarageLogic
         {
         }
 
-        public void InsertNewClint(Clint clint)
+        
+
+        public string msgFullDetailsVehicle(string i_LicenseNum)
         {
-            r_WorkCards.Add(clint.Vehicle.LicenseNumber, clint);
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            {
+                throw new Exception("Vehicle doesn't exists");
+            }
+
+            return clint.ToString();
+        }
+
+        public void ChargeElecticVehicle(string i_LicenseNum, float i_BattaryTime)
+        {
+            Vehicle vehicle = getCurretVehicle(i_LicenseNum);
+        }
+
+        public void InsertNewClint(Clint i_Clint)
+        {
+            r_WorkCards.Add(i_Clint.Vehicle.LicenseNumber, i_Clint);
+        }
+
+        private Vehicle getCurretVehicle(string i_CurrentKeyNumber)
+        {
+            Clint clint = null;
+            if (!r_WorkCards.TryGetValue(i_CurrentKeyNumber, out clint))
+            {
+                throw new Exception("Vehicle doesn't exists");
+            }
+
+            return clint.Vehicle;
+        }
+
+        public string MsgOfAllVehicleInGarageFillterStatus(bool i_OrderByStatus)
+        {
+            string msgAllVehicles;
+
+            msgAllVehicles = i_OrderByStatus ? msgOfAllByStatus() : msgOfAllVehicleInGarage();               
+
+            return msgAllVehicles;
+        }
+
+        private string msgOfAllVehicleInGarage()
+        {
+            StringBuilder vehicles = new StringBuilder(120);           
+            vehicles.AppendLine("Vehicles in garage");
+            foreach (Clint clint in r_WorkCards.Values)
+            {
+                vehicles.AppendLine(clint.Vehicle.LicenseNumber);
+            }
+
+            return vehicles.ToString();
+        }
+
+        private string msgOfAllByStatus()
+        {
+            string newLine = Environment.NewLine;
+            StringBuilder vehicleInRepair = new StringBuilder(string.Format("== Vehicles in repair =={0}",newLine), 60) ;
+            StringBuilder vehicleDoneRepair = new StringBuilder(string.Format("{0}== Vehicles done repair =={0}", newLine), 60) ;
+            StringBuilder vehiclePaid = new StringBuilder(string.Format("{0}== Vehicles paid =={0}", newLine), 60);
+
+            foreach (Clint clint in r_WorkCards.Values)
+            {
+                if (clint.CarStatus == Clint.eStatusInGarage.InRepair)
+                {
+                    vehicleInRepair.AppendLine(clint.Vehicle.LicenseNumber);
+                }
+                else if (clint.CarStatus == Clint.eStatusInGarage.DoneRepair)
+                {
+                    vehicleDoneRepair.AppendLine(clint.Vehicle.LicenseNumber);
+                }
+                else
+                {
+                    vehiclePaid.AppendLine(clint.Vehicle.LicenseNumber);
+                }
+            }
+
+            vehicleInRepair.AppendFormat("{0}{1}", vehicleDoneRepair, vehiclePaid);
+            return vehicleInRepair.ToString();
         }
 
         public bool IsAlreadyInGarage(string i_LicenceNum)

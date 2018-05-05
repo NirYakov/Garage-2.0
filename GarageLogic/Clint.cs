@@ -10,9 +10,9 @@ namespace GarageLogic
     {
         private readonly string r_OnwerName, r_PhoneNumber;        
         private eStatusInGarage m_CarStatus = eStatusInGarage.InRepair;
-        private Vehicle r_Vehicle;
+        private readonly Vehicle r_Vehicle;
 
-        internal Clint(string r_LicenseNumber, string r_Model, Vehicle m_Vehicle, string i_OnwerName, string i_PhoneNumber)
+        public Clint(Vehicle m_Vehicle, string i_OnwerName, string i_PhoneNumber)
         {
             r_OnwerName = i_OnwerName;
             r_PhoneNumber = i_PhoneNumber;
@@ -40,9 +40,21 @@ namespace GarageLogic
             }
         }
 
+        public string OnwerName => r_OnwerName;
+
+        public string PhoneNumber => r_PhoneNumber;
+
         public override string ToString()
         {
-            return base.ToString();
+            string fullClintDetails = string.Format(
+@"Clint Details
+Name: {0}
+Phone number: {1}
+Vehicle status: {2}
+Vehicle Details
+{3}"
+,r_OnwerName,r_PhoneNumber,m_CarStatus,Vehicle.ToString());
+            return fullClintDetails;
         }
 
         // static public Vehicle returnFuelCar() { return new FuelCar("123","456"); } // nir delete 
