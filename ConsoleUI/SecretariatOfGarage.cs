@@ -11,7 +11,6 @@ namespace ConsoleUI
     {
         private readonly GarageLogic.GarageActs r_Garage;
 
-
         public SecretariatOfGarage()
         {
             r_Garage = new GarageLogic.GarageActs();
@@ -42,15 +41,19 @@ namespace ConsoleUI
                 case eGarageAction.InsertCarToGarage:
                     createNewClint();
                     break;
+                case eGarageAction.ListOfVehicles:
+                    printListOfVehicleInGarage();
+                    break;
+                case eGarageAction.NewCarStatus:
+                    changeVehicleStatus();
+                    break;
                 case eGarageAction.FullDataForOnwerAndVehicle:
-                    Console.WriteLine("insert license number");
-                    Console.WriteLine(r_Garage.MsgFullDetailsVehicle(Console.ReadLine()));
+                    fullDataForOnwerAndVehicle();
                     break;
                 default:
                     Console.WriteLine("worng input , insert again");
                     break;
             }
-
 
             return quit;
         }
@@ -67,7 +70,7 @@ namespace ConsoleUI
 
             return enumChoise.ToString();
         }
-
+        
         private void getEnumChoise<T>(Type i_Type, out T i_Choise) where T : struct
         {
             T userChoise;
@@ -98,6 +101,49 @@ namespace ConsoleUI
             Vehicle newVehicle = VehicleCreator.CreateVehicle(currentChoise, licenceNum, modelNum);
             curretVehicle = currentChoise;
             return newVehicle;
+        }
+
+        private void fullDataForOnwerAndVehicle()
+        {
+            Console.WriteLine("insert license number");
+            try
+            {
+                Console.WriteLine(r_Garage.MsgFullDetailsVehicle(Console.ReadLine()));
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void printListOfVehicleInGarage()
+        {
+            Console.WriteLine("insert true (any way) if you want order by status , any other input without status");
+            if (!bool.TryParse(Console.ReadLine(), out bool userWantOrderByStatus))
+            {
+                userWantOrderByStatus = false;
+            }
+
+            Console.WriteLine(r_Garage.MsgOfAllVehicleInGarageFillterStatus(userWantOrderByStatus));
+        }
+
+        private void changeVehicleStatus()
+        {
+            string licenseNumber;
+
+            Console.WriteLine("insert license number");
+            licenseNumber = Console.ReadLine();
+
+            getEnumChoise(typeof(Clint), out Clint.eStatusInGarage chosenstatus);
+            try
+            {
+                r_Garage.ChangeVehicleStatus(licenseNumber, chosenstatus);
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void createNewClint()
@@ -140,7 +186,7 @@ namespace ConsoleUI
             float airPressure = 0;
             Console.WriteLine("insert name of manufacturer of wheels");
             manufacturerNameOfWheels = Console.ReadLine();
-            Console.WriteLine("insert air pressure that you want, if is more than maximum air pressure will be 0");
+            Console.WriteLine("insert air pressure that you want in wheels");
 
             while(!clientInsertLegalPresser)
             {
@@ -153,7 +199,7 @@ namespace ConsoleUI
                     }
                     catch (ValueOutOfRangeException voore)
                     {
-                        Console.WriteLine(voore);
+                        Console.WriteLine(voore.Message);
                     }
                 }
                 else
@@ -190,7 +236,7 @@ namespace ConsoleUI
                 engineCapacity = 500;
             }
 
-            Console.WriteLine("Choose type of license");           
+            Console.WriteLine("Choose type of license -> A,A1,B1,B2");           
             getEnumChoise(typeof(Motorcycle.eTypeOfLicense), out Motorcycle.eTypeOfLicense typeOfLicense);
             VehicleCreator.MotorcyclePropertise(i_Moto, engineCapacity, typeOfLicense);
         }

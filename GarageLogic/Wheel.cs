@@ -67,7 +67,7 @@ namespace GarageLogic
 
         public void AirInflation(float i_AmountOfAirToAdd)
         {
-            if ((m_CurrentAirPressure + i_AmountOfAirToAdd) <= m_MaxAirPressure && i_AmountOfAirToAdd >= 0)
+            if (((m_CurrentAirPressure + i_AmountOfAirToAdd) <= m_MaxAirPressure) && (i_AmountOfAirToAdd >= 0))
             {
                 m_CurrentAirPressure += i_AmountOfAirToAdd;
             }
