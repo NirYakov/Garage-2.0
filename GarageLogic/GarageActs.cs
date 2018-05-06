@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace GarageLogic
@@ -15,24 +14,36 @@ namespace GarageLogic
 
         public void ChargeBattary(string i_LicenseNum, float i_MinuteToCharge)
         {
-            const string electric = "Electric";          
+            const string electric = "Electric";
 
             if (!r_WorkCards.TryGetValue(i_LicenseNum, out Client Client))
             {
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            Client.Vehicle.FillEnergy(i_MinuteToCharge, electric);
+            if (Client.Vehicle.EngineSystem.EnergyType == electric)
+            {
+                Client.Vehicle.FillEnergy(i_MinuteToCharge, electric);
+            }
+            else
+            {
+                throw new Exception("Only electric");
+            }
         }
 
-        public void RefuelVehicle(string i_LicenseNum , float i_FuelAmount ,eFuelType i_FuelType) // Book tosee and fix the fuels fill.
+        public void RefuelVehicle(string i_LicenseNum, float i_FuelAmount, eFuelType i_FuelType)
         {
+            if (Enum.IsDefined(typeof(eFuelType), i_FuelType))
+            {
+                throw new Exception("Not available Fuel");
+            }
+
             if (!r_WorkCards.TryGetValue(i_LicenseNum, out Client Client))
             {
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            Client.Vehicle.FillEnergy(i_FuelAmount, i_FuelType.ToString());           
+            Client.Vehicle.FillEnergy(i_FuelAmount, i_FuelType.ToString());
         }
 
         public void FillMaxWheelsAir(string i_LicenseNum)
@@ -52,9 +63,9 @@ namespace GarageLogic
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            Client.CarStatus = i_NewStatus;           
+            Client.CarStatus = i_NewStatus;
         }
-        
+
         public string MsgFullDetailsVehicle(string i_LicenseNum)
         {
             if (!r_WorkCards.TryGetValue(i_LicenseNum, out Client Client))
@@ -70,7 +81,7 @@ namespace GarageLogic
             Vehicle vehicle = getCurretVehicle(i_LicenseNum);
         }
 
-        public void InsertNewClient(Vehicle i_NewVehicle,string i_ClientName,string  i_ClientPhoneNumber)
+        public void InsertNewClient(Vehicle i_NewVehicle, string i_ClientName, string i_ClientPhoneNumber)
         {
             Client newClient = new Client(i_NewVehicle, i_ClientName, i_ClientPhoneNumber);
             r_WorkCards.Add(newClient.Vehicle.LicenseNumber, newClient);
@@ -91,14 +102,14 @@ namespace GarageLogic
         {
             string msgAllVehicles;
 
-            msgAllVehicles = i_OrderByStatus ? msgOfAllByStatus() : msgOfAllVehicleInGarage();               
+            msgAllVehicles = i_OrderByStatus ? msgOfAllByStatus() : msgOfAllVehicleInGarage();
 
             return msgAllVehicles;
         }
 
         private string msgOfAllVehicleInGarage()
         {
-            StringBuilder vehicles = new StringBuilder(120);           
+            StringBuilder vehicles = new StringBuilder(120);
             vehicles.AppendLine("Vehicles in garage");
             foreach (Client Client in r_WorkCards.Values)
             {
@@ -111,8 +122,8 @@ namespace GarageLogic
         private string msgOfAllByStatus()
         {
             string newLine = Environment.NewLine;
-            StringBuilder vehicleInRepair = new StringBuilder(string.Format("== Vehicles in repair =={0}",newLine), 60) ;
-            StringBuilder vehicleDoneRepair = new StringBuilder(string.Format("{0}== Vehicles done repair =={0}", newLine), 60) ;
+            StringBuilder vehicleInRepair = new StringBuilder(string.Format("== Vehicles in repair =={0}", newLine), 60);
+            StringBuilder vehicleDoneRepair = new StringBuilder(string.Format("{0}== Vehicles done repair =={0}", newLine), 60);
             StringBuilder vehiclePaid = new StringBuilder(string.Format("{0}== Vehicles paid =={0}", newLine), 60);
 
             foreach (Client Client in r_WorkCards.Values)
