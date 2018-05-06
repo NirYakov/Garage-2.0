@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public class GarageActs
+    public sealed class GarageActs
     {
-        private readonly Dictionary<string, Clint> r_WorkCards = new Dictionary<string, Clint>();
+        private readonly Dictionary<string, Client> r_WorkCards = new Dictionary<string, Client>();
 
         public GarageActs()
         {
@@ -18,52 +17,52 @@ namespace GarageLogic
         {
             const string electric = "Electric";          
 
-            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Client Client))
             {
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            clint.Vehicle.FillEnergy(i_MinuteToCharge, electric);
+            Client.Vehicle.FillEnergy(i_MinuteToCharge, electric);
         }
 
         public void RefuelVehicle(string i_LicenseNum , float i_FuelAmount ,eFuelType i_FuelType) // Book tosee and fix the fuels fill.
         {
-            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Client Client))
             {
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            clint.Vehicle.FillEnergy(i_FuelAmount, i_FuelType.ToString());           
+            Client.Vehicle.FillEnergy(i_FuelAmount, i_FuelType.ToString());           
         }
 
         public void FillMaxWheelsAir(string i_LicenseNum)
         {
-            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Client Client))
             {
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            clint.Vehicle.FillMaxWheelsAir();
+            Client.Vehicle.FillMaxWheelsAir();
         }
 
-        public void ChangeVehicleStatus(string i_LicenseNum, Clint.eStatusInGarage i_NewStatus)
+        public void ChangeVehicleStatus(string i_LicenseNum, Client.eStatusInGarage i_NewStatus)
         {
-            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Client Client))
             {
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            clint.CarStatus = i_NewStatus;           
+            Client.CarStatus = i_NewStatus;           
         }
         
         public string MsgFullDetailsVehicle(string i_LicenseNum)
         {
-            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Clint clint))
+            if (!r_WorkCards.TryGetValue(i_LicenseNum, out Client Client))
             {
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            return clint.ToString();
+            return Client.ToString();
         }
 
         public void ChargeElecticVehicle(string i_LicenseNum, float i_BattaryTime)
@@ -71,21 +70,21 @@ namespace GarageLogic
             Vehicle vehicle = getCurretVehicle(i_LicenseNum);
         }
 
-        public void InsertNewClint(Vehicle i_NewVehicle,string i_ClientName,string  i_ClientPhoneNumber)
+        public void InsertNewClient(Vehicle i_NewVehicle,string i_ClientName,string  i_ClientPhoneNumber)
         {
-            Clint newClint = new Clint(i_NewVehicle, i_ClientName, i_ClientPhoneNumber);
-            r_WorkCards.Add(newClint.Vehicle.LicenseNumber, newClint);
+            Client newClient = new Client(i_NewVehicle, i_ClientName, i_ClientPhoneNumber);
+            r_WorkCards.Add(newClient.Vehicle.LicenseNumber, newClient);
         }
 
         private Vehicle getCurretVehicle(string i_CurrentKeyNumber)
         {
-            Clint clint = null;
-            if (!r_WorkCards.TryGetValue(i_CurrentKeyNumber, out clint))
+            Client Client = null;
+            if (!r_WorkCards.TryGetValue(i_CurrentKeyNumber, out Client))
             {
                 throw new Exception("Vehicle doesn't exists");
             }
 
-            return clint.Vehicle;
+            return Client.Vehicle;
         }
 
         public string MsgOfAllVehicleInGarageFillterStatus(bool i_OrderByStatus)
@@ -101,9 +100,9 @@ namespace GarageLogic
         {
             StringBuilder vehicles = new StringBuilder(120);           
             vehicles.AppendLine("Vehicles in garage");
-            foreach (Clint clint in r_WorkCards.Values)
+            foreach (Client Client in r_WorkCards.Values)
             {
-                vehicles.AppendLine(clint.Vehicle.LicenseNumber);
+                vehicles.AppendLine(Client.Vehicle.LicenseNumber);
             }
 
             return vehicles.ToString();
@@ -116,19 +115,19 @@ namespace GarageLogic
             StringBuilder vehicleDoneRepair = new StringBuilder(string.Format("{0}== Vehicles done repair =={0}", newLine), 60) ;
             StringBuilder vehiclePaid = new StringBuilder(string.Format("{0}== Vehicles paid =={0}", newLine), 60);
 
-            foreach (Clint clint in r_WorkCards.Values)
+            foreach (Client Client in r_WorkCards.Values)
             {
-                if (clint.CarStatus == Clint.eStatusInGarage.InRepair)
+                if (Client.CarStatus == Client.eStatusInGarage.InRepair)
                 {
-                    vehicleInRepair.AppendLine(clint.Vehicle.LicenseNumber);
+                    vehicleInRepair.AppendLine(Client.Vehicle.LicenseNumber);
                 }
-                else if (clint.CarStatus == Clint.eStatusInGarage.DoneRepair)
+                else if (Client.CarStatus == Client.eStatusInGarage.DoneRepair)
                 {
-                    vehicleDoneRepair.AppendLine(clint.Vehicle.LicenseNumber);
+                    vehicleDoneRepair.AppendLine(Client.Vehicle.LicenseNumber);
                 }
                 else
                 {
-                    vehiclePaid.AppendLine(clint.Vehicle.LicenseNumber);
+                    vehiclePaid.AppendLine(Client.Vehicle.LicenseNumber);
                 }
             }
 

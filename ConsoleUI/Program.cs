@@ -13,7 +13,7 @@ namespace ConsoleUI
             //Testing();
            // TestingYosi();
 
-            SecretariatOfGarage garage = new SecretariatOfGarage();
+            GarageManagement garage = new GarageManagement();
             garage.OpenGarage();
 
 

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public sealed class Clint
+    public sealed class Client
     {
         private readonly string r_OnwerName, r_PhoneNumber;        
         private eStatusInGarage m_CarStatus = eStatusInGarage.InRepair;
         private readonly Vehicle r_Vehicle;
 
-        internal Clint(Vehicle m_Vehicle, string i_OnwerName, string i_PhoneNumber)
+        internal Client(Vehicle m_Vehicle, string i_OnwerName, string i_PhoneNumber)
         {
             r_OnwerName = i_OnwerName;
             r_PhoneNumber = i_PhoneNumber;
@@ -46,15 +46,15 @@ namespace GarageLogic
 
         public override string ToString()
         {
-            string fullClintDetails = string.Format(
-@"Clint Details
+            string fullClientDetails = string.Format(
+@"Client Details
 Name: {0}
 Phone number: {1}
 Vehicle status: {2}
 Vehicle Details
 {3}"
 ,r_OnwerName,r_PhoneNumber,m_CarStatus,Vehicle.ToString());
-            return fullClintDetails;
+            return fullClientDetails;
         }       
 
         public enum eStatusInGarage

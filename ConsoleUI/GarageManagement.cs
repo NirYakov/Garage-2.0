@@ -7,11 +7,11 @@ using GarageLogic;
 
 namespace ConsoleUI
 {
-    public class SecretariatOfGarage
+    public sealed class GarageManagement
     {
         private readonly GarageLogic.GarageActs r_Garage;
 
-        public SecretariatOfGarage()
+        public GarageManagement()
         {
             r_Garage = new GarageLogic.GarageActs();
         }
@@ -39,7 +39,7 @@ namespace ConsoleUI
                     quit = true;
                     break;
                 case eGarageAction.InsertCarToGarage:
-                    createNewClint();
+                    createNewClient();
                     break;
                 case eGarageAction.ListOfVehicles:
                     printListOfVehicleInGarage();
@@ -55,7 +55,7 @@ namespace ConsoleUI
                     fullDataForOnwerAndVehicle();
                     break;
                 default:
-                    Console.WriteLine("worng input , insert again");
+                    Console.WriteLine("wrong input , insert again");
                     break;
             }
 
@@ -86,7 +86,7 @@ namespace ConsoleUI
             o_Choise = userChoise;
         }
 
-        private Vehicle createNewVehicle( out eVehicleOption curretVehicle)
+        private Vehicle createNewVehicle( out eVehicleOption o_CurretVehicle)
         {
             string licenceNum, modelNum;
             Console.WriteLine("insert the licence number");
@@ -103,7 +103,7 @@ namespace ConsoleUI
             Console.WriteLine("Insert model for the {0}", currentChoise);
             modelNum = Console.ReadLine();
             Vehicle newVehicle = VehicleCreator.CreateVehicle(currentChoise, licenceNum, modelNum);
-            curretVehicle = currentChoise;
+            o_CurretVehicle = currentChoise;
             return newVehicle;
         }
 
@@ -137,8 +137,8 @@ namespace ConsoleUI
 
             Console.WriteLine("insert license number");
             licenseNumber = Console.ReadLine();
-            Console.WriteLine( EnumChoises(typeof(Clint.eStatusInGarage)) );
-            getEnumChoise(typeof(Clint.eStatusInGarage), out Clint.eStatusInGarage chosenstatus);
+            Console.WriteLine( EnumChoises(typeof(Client.eStatusInGarage)) );
+            getEnumChoise(typeof(Client.eStatusInGarage), out Client.eStatusInGarage chosenstatus);
             try
             {
                 r_Garage.ChangeVehicleStatus(licenseNumber, chosenstatus);
@@ -164,10 +164,10 @@ namespace ConsoleUI
 
         }
 
-        private void createNewClint()
+        private void createNewClient()
         {
             Vehicle newVehicle = createNewVehicle(out eVehicleOption curretVehicle);
-            fillAndAddClintToTheGarage(newVehicle);
+            fillAndAddClientToTheGarage(newVehicle);
             VehiclePropertise(newVehicle);
             
             switch (curretVehicle)
@@ -187,14 +187,14 @@ namespace ConsoleUI
 
         }
 
-        private void fillAndAddClintToTheGarage(Vehicle i_NewVehicle)
+        private void fillAndAddClientToTheGarage(Vehicle i_NewVehicle)
         {
             string clientName, clientPhoneNumber;
             Console.WriteLine("insert your name");
             clientName = Console.ReadLine();
             Console.WriteLine("insert your phone number");
             clientPhoneNumber = Console.ReadLine();
-            r_Garage.InsertNewClint(i_NewVehicle, clientName, clientPhoneNumber);
+            r_Garage.InsertNewClient(i_NewVehicle, clientName, clientPhoneNumber);
         }
 
         void VehiclePropertise(Vehicle i_Vehicle)
