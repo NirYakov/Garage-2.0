@@ -32,6 +32,14 @@ namespace GarageLogic
                 return r_FuelType.ToString();
             }
         }
+
+        public override string EnergyType
+        {
+            get
+            {
+                return r_FuelType.ToString();
+            }
+        }
     }    
 }
 

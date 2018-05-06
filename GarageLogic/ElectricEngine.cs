@@ -7,9 +7,19 @@ using System.Threading.Tasks;
 namespace GarageLogic
 {
     internal class ElectricEngine : Engine
-    { 
+    {
+        const string k_Electric = "Electric";
+
         public ElectricEngine(float i_MaxEnergyCapacity) : base(i_MaxEnergyCapacity)
         {            
+        }
+
+        public override string EnergyType
+        {
+            get
+            {
+                return k_Electric;
+            }
         }
 
         public override void FillEnergy(float i_AmonutOfEnergy, string i_EnergyType)

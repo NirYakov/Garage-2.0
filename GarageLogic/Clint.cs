@@ -12,7 +12,7 @@ namespace GarageLogic
         private eStatusInGarage m_CarStatus = eStatusInGarage.InRepair;
         private readonly Vehicle r_Vehicle;
 
-        public Clint(Vehicle m_Vehicle, string i_OnwerName, string i_PhoneNumber)
+        internal Clint(Vehicle m_Vehicle, string i_OnwerName, string i_PhoneNumber)
         {
             r_OnwerName = i_OnwerName;
             r_PhoneNumber = i_PhoneNumber;
@@ -55,9 +55,7 @@ Vehicle Details
 {3}"
 ,r_OnwerName,r_PhoneNumber,m_CarStatus,Vehicle.ToString());
             return fullClintDetails;
-        }
-
-        // static public Vehicle returnFuelCar() { return new FuelCar("123","456"); } // nir delete 
+        }       
 
         public enum eStatusInGarage
         {

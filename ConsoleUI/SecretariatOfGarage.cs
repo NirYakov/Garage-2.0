@@ -71,7 +71,7 @@ namespace ConsoleUI
             return enumChoise.ToString();
         }
         
-        private void getEnumChoise<T>(Type i_Type, out T i_Choise) where T : struct
+        private void getEnumChoise<T>(Type i_Type, out T o_Choise) where T : struct
         {
             T userChoise;
             while (!(Enum.TryParse(Console.ReadLine(), out userChoise) && Enum.IsDefined(i_Type, userChoise)))
@@ -79,7 +79,7 @@ namespace ConsoleUI
                 Console.WriteLine("Wrong input, try again.");
             }
 
-            i_Choise = userChoise;
+            o_Choise = userChoise;
         }
 
         private Vehicle createNewVehicle( out eVehicleOption curretVehicle)
@@ -176,7 +176,7 @@ namespace ConsoleUI
             clientName = Console.ReadLine();
             Console.WriteLine("insert your phone number");
             clientPhoneNumber = Console.ReadLine();
-            r_Garage.InsertNewClint(new Clint(i_NewVehicle, clientName, clientPhoneNumber));
+            r_Garage.InsertNewClint(i_NewVehicle, clientName, clientPhoneNumber));
         }
 
         void VehiclePropertise(Vehicle i_Vehicle)
@@ -236,7 +236,8 @@ namespace ConsoleUI
                 engineCapacity = 500;
             }
 
-            Console.WriteLine("Choose type of license -> A,A1,B1,B2");           
+            Console.WriteLine("Choose type of license");
+            Console.WriteLine(EnumChoises(typeof(Motorcycle.eTypeOfLicense)));
             getEnumChoise(typeof(Motorcycle.eTypeOfLicense), out Motorcycle.eTypeOfLicense typeOfLicense);
             VehicleCreator.MotorcyclePropertise(i_Moto, engineCapacity, typeOfLicense);
         }

@@ -46,6 +46,8 @@ namespace GarageLogic
 
         abstract public void FillEnergy(float i_AmonutOfEnergy, string i_EnergyType);
 
+        abstract public string EnergyType { get; }
+
         protected void checkingAmoutAndFillingEnergy(float i_AmonutOfEnergy)
         {
             if (m_CurrentEnergyStatus + i_AmonutOfEnergy <= r_MaxEnergyCapacity)
