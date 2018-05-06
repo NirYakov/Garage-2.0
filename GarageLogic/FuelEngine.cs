@@ -40,6 +40,5 @@ namespace GarageLogic
                 return r_FuelType.ToString();
             }
         }
-    }    
+    }
 }
-

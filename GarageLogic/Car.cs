@@ -8,8 +8,8 @@ namespace GarageLogic
 {
     public abstract class Car : Vehicle
     {
-        const float  k_MaxAirPressure = 32;
-        const byte k_NumOfWheels = 4;
+        private const float k_MaxAirPressure = 32;
+        private const byte k_NumOfWheels = 4;
         protected byte m_DoorsCount;
         protected eCarColor m_CarColor;
 
@@ -51,8 +51,8 @@ namespace GarageLogic
             }
 
             set
-            {                
-                    m_CarColor = value;               
+            {
+                m_CarColor = value;
             }
         }
 
@@ -60,7 +60,7 @@ namespace GarageLogic
         {
             return string.Format(
 @"{0}
-the car color is:{1} , the count of doors is:{2},", base.ToString(), m_CarColor,m_DoorsCount);
+the car color is:{1} , the count of doors is:{2},", base.ToString(), m_CarColor, m_DoorsCount);
         }
 
         public enum eCarColor : byte

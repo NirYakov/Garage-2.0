@@ -72,7 +72,7 @@ namespace GarageLogic
                 m_CurrentAirPressure += i_AmountOfAirToAdd;
             }
             else
-            {                                       // it is max that you can insert in your "tank"
+            {                                      
                 throw new ValueOutOfRangeException(null, m_MaxAirPressure - m_CurrentAirPressure, 0);
             }
         }

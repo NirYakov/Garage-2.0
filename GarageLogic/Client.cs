@@ -8,9 +8,9 @@ namespace GarageLogic
 {
     public sealed class Client
     {
-        private readonly string r_OnwerName, r_PhoneNumber;        
-        private eStatusInGarage m_CarStatus = eStatusInGarage.InRepair;
+        private readonly string r_OnwerName, r_PhoneNumber;
         private readonly Vehicle r_Vehicle;
+        private eStatusInGarage m_CarStatus = eStatusInGarage.InRepair;
 
         internal Client(Vehicle m_Vehicle, string i_OnwerName, string i_PhoneNumber)
         {
@@ -53,9 +53,9 @@ Phone number: {1}
 Vehicle status: {2}
 Vehicle Details
 {3}"
-,r_OnwerName,r_PhoneNumber,m_CarStatus,Vehicle.ToString());
+, r_OnwerName, r_PhoneNumber, m_CarStatus, Vehicle.ToString());
             return fullClientDetails;
-        }       
+        }
 
         public enum eStatusInGarage
         {

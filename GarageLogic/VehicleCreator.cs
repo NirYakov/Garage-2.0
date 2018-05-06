@@ -40,7 +40,7 @@ namespace GarageLogic
 
         public static void VehicleEnergyProperty(Vehicle i_Vehicle, float i_CurrentPercentEnergy)
         {
-            i_Vehicle.SetAmountOfEnergy(i_CurrentPercentEnergy);
+            i_Vehicle.PercentOfEnergy = i_CurrentPercentEnergy;
         }
 
         public static void CarPropertise(Vehicle i_Car, byte i_NumOfDoors, Car.eCarColor i_CarColor)
