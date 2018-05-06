@@ -50,7 +50,12 @@ namespace ConsoleUI
                 case eGarageAction.FillMaxWheelAir:
                     fillAirInWheelsToMaximum();
                     break;
-
+                case eGarageAction.RefuelFuelVehicle:
+                    refuelFuelVehicle();
+                    break;
+                case eGarageAction.ChargeElectricVehicle:
+                    chargeElectricVehicle();
+                    break;
                 case eGarageAction.FullDataForOnwerAndVehicle:
                     fullDataForOnwerAndVehicle();
                     break;
@@ -138,11 +143,37 @@ namespace ConsoleUI
             Console.WriteLine("insert license number");
             licenseNumber = Console.ReadLine();
             Console.WriteLine( EnumChoises(typeof(Client.eStatusInGarage)) );
-            getEnumChoise(typeof(Client.eStatusInGarage), out Client.eStatusInGarage chosenstatus);
+            getEnumChoise(typeof(Client.eStatusInGarage), out Client.eStatusInGarage chosenStatus);
             try
             {
-                r_Garage.ChangeVehicleStatus(licenseNumber, chosenstatus);
+                r_Garage.ChangeVehicleStatus(licenseNumber, chosenStatus);
                 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void chargeElectricVehicle()
+        {
+            string licenseNumber;
+            float chargingMinutesAmount;
+            Console.WriteLine("insert license number");
+            licenseNumber = Console.ReadLine();
+            Console.WriteLine("insert amount of minutes charging you want to add");
+            while (!float.TryParse(Console.ReadLine(), out chargingMinutesAmount))
+            {
+                Console.WriteLine("wrong input, try again");
+            }
+
+            try
+            {
+                r_Garage.ChargeBattary(licenseNumber, chargingMinutesAmount);
+            }
+            catch (ValueOutOfRangeException voore)
+            {
+                Console.WriteLine(voore.Message);
             }
             catch (Exception ex)
             {
@@ -197,7 +228,34 @@ namespace ConsoleUI
             r_Garage.InsertNewClient(i_NewVehicle, clientName, clientPhoneNumber);
         }
 
-        void VehiclePropertise(Vehicle i_Vehicle)
+        private void refuelFuelVehicle()
+        {
+            string licenseNumber;
+            float fuelAmount;
+            Console.WriteLine("insert license number");
+            licenseNumber = Console.ReadLine();
+            Console.WriteLine("insert the amount of fuel to add");
+            while(!float.TryParse(Console.ReadLine(), out fuelAmount))
+            {
+                Console.WriteLine("wrong input, try again");
+            }
+            Console.WriteLine(EnumChoises(typeof(eFuelType)));
+            getEnumChoise(typeof(eFuelType), out eFuelType chosenTypeFuel);
+            try
+            {
+                r_Garage.RefuelVehicle(licenseNumber, fuelAmount, chosenTypeFuel);
+            }
+            catch(ValueOutOfRangeException voore)
+            {
+                Console.WriteLine(voore.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void wheelsProperty(Vehicle i_Vehicle)
         {
             bool clientInsertLegalPresser = false;
             string manufacturerNameOfWheels;
@@ -206,13 +264,13 @@ namespace ConsoleUI
             manufacturerNameOfWheels = Console.ReadLine();
             Console.WriteLine("insert air pressure that you want in wheels");
 
-            while(!clientInsertLegalPresser)
+            while (!clientInsertLegalPresser)
             {
                 if (float.TryParse(Console.ReadLine(), out airPressure))
                 {
                     try
                     {
-                        VehicleCreator.VehiclePropertise(i_Vehicle, manufacturerNameOfWheels, airPressure);
+                        VehicleCreator.VehicleWheelsProperty(i_Vehicle, manufacturerNameOfWheels, airPressure);
                         clientInsertLegalPresser = true;
                     }
                     catch (ValueOutOfRangeException voore)
@@ -225,6 +283,38 @@ namespace ConsoleUI
                     Console.WriteLine("it ilegal input try again");
                 }
             }
+        }
+
+        private void setEnergyInVehicle(Vehicle i_Vehicle)
+        {
+            float currentPercentOfEnergy;
+            Console.WriteLine("insert current percent energy in your vehicle");
+            bool clientInsertLegalpercent = false;
+            while (!clientInsertLegalpercent)
+            {
+                if (float.TryParse(Console.ReadLine(), out currentPercentOfEnergy))
+                {
+                    try
+                    {
+                        VehicleCreator.VehicleEnergyProperty(i_Vehicle, currentPercentOfEnergy);
+                        clientInsertLegalpercent = true;
+                    }
+                    catch (ValueOutOfRangeException voore)
+                    {
+                        Console.WriteLine("insert percent between 0 to 100");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("it ilegal input try again");
+                }
+            }
+        }
+
+        void VehiclePropertise(Vehicle i_Vehicle)
+        {
+            wheelsProperty(i_Vehicle);
+            setEnergyInVehicle(i_Vehicle);
         }
 
         void CarPropertise(Vehicle i_Car) // its private ? -> need to be carPropertise

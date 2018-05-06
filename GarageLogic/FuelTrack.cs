@@ -14,7 +14,7 @@ namespace GarageLogic
         private bool m_IsHaveCoolTrunk;
 
         public FuelTrack(string i_LicenseNumber, string i_Model)
-            : base(i_LicenseNumber, i_Model , k_NumOfWheels, new FuelEngine(6f,eFuelType.Soler))
+            : base(i_LicenseNumber, i_Model , k_NumOfWheels, new FuelEngine(115f,eFuelType.Soler))
         {
         }
 
@@ -61,7 +61,7 @@ namespace GarageLogic
         {
             return string.Format(
 @"{0}
-type of fule is:{1}  , Fuel status is:{2}  , trunk capacity is:{3} ,HaveCoolTrunk:{4} "
+type of fule is:{1}  , Fuel status is:{2}%  , trunk capacity is:{3} ,HaveCoolTrunk:{4} "
 , base.ToString(), eFuelType.Soler, m_PercentOfEnergy, m_TrunkCapacity, m_IsHaveCoolTrunk);
         }
     }

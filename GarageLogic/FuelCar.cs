@@ -19,7 +19,7 @@ namespace GarageLogic
         {
             return string.Format(
 @"{0}
-type of fule is:{1}  , Fuel status is:{2}", base.ToString(), eFuelType.Octan98, m_PercentOfEnergy);
+type of fule is:{1}  , Fuel status is:{2}%", base.ToString(), eFuelType.Octan98, m_PercentOfEnergy);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace GarageLogic
         {
             return string.Format(
  @"{0}
-Battery status:{1}", base.ToString(), m_PercentOfEnergy);
+Battery status:{1}%", base.ToString(), m_PercentOfEnergy);
         }
     }
 }
