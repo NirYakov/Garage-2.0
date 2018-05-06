@@ -26,13 +26,7 @@ namespace GarageLogic
                return r_Engine;
             }
         }
-
-        public void SetAmountOfEnergy(float i_PercentOfEnergy)
-        {
-            EngineSystem.CurrentEnergyStatus = (i_PercentOfEnergy / 100) * EngineSystem.MaxEnergyCapacity ;
-            m_PercentOfEnergy = i_PercentOfEnergy;
-        }
-
+        
         public abstract void SetWheelsProperty(string i_ManufacturerName, float i_CurrentAirPressure);
 
         protected void initWheelsList(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure, byte i_NumOfWheels)
@@ -48,6 +42,12 @@ namespace GarageLogic
             get
             {                
                 return m_PercentOfEnergy;
+            }
+
+            internal set
+            {
+                EngineSystem.CurrentEnergyStatus = (value / 100) * EngineSystem.MaxEnergyCapacity;
+                m_PercentOfEnergy = value;
             }
         }
 

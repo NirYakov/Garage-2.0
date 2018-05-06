@@ -8,7 +8,7 @@ namespace GarageLogic
 {
     internal class ElectricEngine : Engine
     {
-        const string k_Electric = "Electric";
+       private const string k_Electric = "Electric";
 
         public ElectricEngine(float i_MaxEnergyCapacity) : base(i_MaxEnergyCapacity)
         {            

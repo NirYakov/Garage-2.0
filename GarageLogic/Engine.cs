@@ -44,9 +44,12 @@ namespace GarageLogic
             }
         }
 
-        abstract public void FillEnergy(float i_AmonutOfEnergy, string i_EnergyType);
+        public abstract void FillEnergy(float i_AmonutOfEnergy, string i_EnergyType);
 
-        abstract public string EnergyType { get; }
+        public abstract string EnergyType
+        {
+            get;
+        }
 
         protected void checkingAmoutAndFillingEnergy(float i_AmonutOfEnergy)
         {
