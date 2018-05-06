@@ -8,7 +8,7 @@ namespace GarageLogic
 {
     internal class FuelMotorcycle : Motorcycle
     {
-        const float k_MaxFuelTank = 6f;
+        private const float k_MaxFuelTank = 6f;
 
         public FuelMotorcycle(string i_LicenseNumber, string i_Model)
             : base(i_LicenseNumber, i_Model, new FuelEngine(k_MaxFuelTank, eFuelType.Octan96))

@@ -18,6 +18,11 @@ namespace GarageLogic
         {
         }
 
+        public override void SetWheelsProperty(string i_ManufacturerName, float i_CurrentAirPressure)
+        {
+            initWheelsList(i_ManufacturerName, i_CurrentAirPressure, k_MaxAirPressure, k_NumOfWheels);
+        }
+
         public bool HaveCoolTrunk
         {
             get

@@ -8,7 +8,7 @@ namespace GarageLogic
 {
     internal class ElectricMotorcycle : Motorcycle
     {
-        const float k_MaxHoursBattery = 1.8f;
+        private const float k_MaxHoursBattery = 1.8f;
 
         public ElectricMotorcycle(string i_LicenseNumber, string i_Model)
             : base (i_LicenseNumber, i_Model, new ElectricEngine(k_MaxHoursBattery))

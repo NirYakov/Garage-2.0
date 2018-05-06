@@ -47,6 +47,10 @@ namespace ConsoleUI
                 case eGarageAction.NewCarStatus:
                     changeVehicleStatus();
                     break;
+                case eGarageAction.FillMaxWheelAir:
+                    fillAirInWheelsToMaximum();
+                    break;
+
                 case eGarageAction.FullDataForOnwerAndVehicle:
                     fullDataForOnwerAndVehicle();
                     break;
@@ -133,8 +137,8 @@ namespace ConsoleUI
 
             Console.WriteLine("insert license number");
             licenseNumber = Console.ReadLine();
-
-            getEnumChoise(typeof(Clint), out Clint.eStatusInGarage chosenstatus);
+            Console.WriteLine( EnumChoises(typeof(Clint.eStatusInGarage)) );
+            getEnumChoise(typeof(Clint.eStatusInGarage), out Clint.eStatusInGarage chosenstatus);
             try
             {
                 r_Garage.ChangeVehicleStatus(licenseNumber, chosenstatus);
@@ -144,6 +148,20 @@ namespace ConsoleUI
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void fillAirInWheelsToMaximum()
+        {
+            Console.WriteLine("insert license number");
+            try
+            {
+                r_Garage.FillMaxWheelsAir(Console.ReadLine());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
 
         private void createNewClint()
@@ -176,7 +194,7 @@ namespace ConsoleUI
             clientName = Console.ReadLine();
             Console.WriteLine("insert your phone number");
             clientPhoneNumber = Console.ReadLine();
-            r_Garage.InsertNewClint(i_NewVehicle, clientName, clientPhoneNumber));
+            r_Garage.InsertNewClint(i_NewVehicle, clientName, clientPhoneNumber);
         }
 
         void VehiclePropertise(Vehicle i_Vehicle)

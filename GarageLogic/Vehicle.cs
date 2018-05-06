@@ -7,15 +7,15 @@ namespace GarageLogic
     public abstract class Vehicle
     {
         protected readonly string r_LicenseNumber, r_Model;
-        protected readonly List<Wheel> m_ListOfWheels;
+        protected readonly List<Wheel> r_ListOfWheels;
         protected readonly Engine r_Engine;
         protected float m_PercentOfEnergy = 0;
 
-        public Vehicle(string i_LicenseNumber, string i_Model, byte i_NumOfWheels , Engine i_EngineToVehicle)
+        public Vehicle(string i_LicenseNumber, string i_Model, byte i_NumOfWheels, Engine i_EngineToVehicle)
         {
             r_Model = i_Model;
             r_LicenseNumber = i_LicenseNumber;
-            m_ListOfWheels = new List<Wheel>(i_NumOfWheels);
+            r_ListOfWheels = new List<Wheel>(i_NumOfWheels);
             r_Engine = i_EngineToVehicle;
         }
 
@@ -27,13 +27,13 @@ namespace GarageLogic
             }
         }
 
-        // public abstract void VehicleExtraFillData();
+        public abstract void SetWheelsProperty(string i_ManufacturerName, float i_CurrentAirPressure);
 
         protected void initWheelsList(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure, byte i_NumOfWheels)
         {
             for (int i = 0; i < i_NumOfWheels; i++)
             {
-                m_ListOfWheels.Add(new Wheel(i_ManufacturerName, i_CurrentAirPressure, i_MaxAirPressure));
+                r_ListOfWheels.Add(new Wheel(i_ManufacturerName, i_CurrentAirPressure, i_MaxAirPressure));
             }
         }
 
@@ -48,7 +48,7 @@ namespace GarageLogic
         public void FillEnergy(float i_AmonutOfEnergy, string i_EnergyType)
         {
             EngineSystem.FillEnergy(i_AmonutOfEnergy, i_EnergyType);
-            m_PercentOfEnergy = (100 * (EngineSystem.CurrentEnergyStatus / EngineSystem.MaxEnergyCapacity));
+            m_PercentOfEnergy = 100 * EngineSystem.CurrentEnergyStatus / EngineSystem.MaxEnergyCapacity;
         }
 
         public string Model
@@ -69,30 +69,22 @@ namespace GarageLogic
 
         public void FillMaxWheelsAir()
         {
-            foreach (Wheel wheel in m_ListOfWheels)
+            foreach (Wheel wheel in r_ListOfWheels)
             {
                 wheel.AirInflation(wheel.MaxAirPressure - wheel.CurrentAirPressure);
             }            
         }
 
-        public void SetWheelsProperty(string i_ManufacturerName, float i_CurrentAirPressure)
-        {
-            foreach (Wheel wheel in m_ListOfWheels)
-            {
-                wheel.ManufacturerName = i_ManufacturerName;
-                wheel.AirInflation(i_CurrentAirPressure);
-            }
-        }
-
         public override string ToString()
         {
             StringBuilder wheels = new StringBuilder();
-            foreach (Wheel wheel in m_ListOfWheels)
+            foreach (Wheel wheel in r_ListOfWheels) 
             {
                 wheels.Append(Environment.NewLine + wheel);
             }
+
             return string.Format(
-@"License Number:{0}  ,Model is:{1} ,the wheels is:{2}" , r_LicenseNumber, r_Model, wheels);
+@"License Number:{0}  ,Model is:{1} ,the wheels is:{2}", r_LicenseNumber, r_Model, wheels);
         }
     }
 }

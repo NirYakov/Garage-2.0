@@ -16,8 +16,12 @@ namespace GarageLogic
         internal Car(string i_LicenseNumber, string i_Model, Engine i_EngineToVehicle)
             : base(i_LicenseNumber, i_Model, k_NumOfWheels, i_EngineToVehicle)
         {
-            initWheelsList("Unknown", 0, k_MaxAirPressure, k_NumOfWheels);
-        }             
+        }
+
+        public override void SetWheelsProperty(string i_ManufacturerName, float i_CurrentAirPressure)
+        {
+            initWheelsList(i_ManufacturerName, i_CurrentAirPressure, k_MaxAirPressure, k_NumOfWheels);
+        }
 
         public byte DoorsCount
         {
