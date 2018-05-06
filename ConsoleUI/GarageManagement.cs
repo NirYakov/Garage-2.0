@@ -9,6 +9,19 @@ namespace ConsoleUI
 {
     public sealed class GarageManagement
     {
+        private const string k_MenuMsg =
+@"
+Menu
+============== Insert the number of Action you want and then press 'enter ' ==============
+0. Exit
+1. Insert car to garage
+2. List of vehicles in progress , only licence number .  
+3. New vehicle status
+4. Fill untill Max wheel air to vehicle's
+5. Refuel fuel vehicle
+6. Charge electric vehicle
+7. Full data for onwer and vehicle";
+
         private readonly GarageLogic.GarageActs r_Garage;
 
         public GarageManagement()
@@ -23,17 +36,17 @@ namespace ConsoleUI
             eGarageAction actionToDo;
             while (!quit)
             {
-                
                 Console.WriteLine(k_MenuMsg);
                 actionToDo = (eGarageAction)(byte.TryParse(Console.ReadLine(), out byte userInputChoise) ? userInputChoise : outOfChoiseRange);
+                Console.Clear();
                 quit = doActionInGarage(actionToDo);
             }
         }
 
-        private bool doActionInGarage(eGarageAction option)
+        private bool doActionInGarage(eGarageAction i_option)
         {
             bool quit = false;
-            switch (option)
+            switch (i_option)
             {
                 case eGarageAction.Exit:
                     quit = true;
@@ -64,24 +77,22 @@ namespace ConsoleUI
                     break;
             }
 
-            Console.Clear();
-
             return quit;
         }
 
-        public string EnumChoises(Type i_Type) // print all enum choises , all enum need start from 0
+        public string EnumChoises(Type i_Type)
         {
-            string[] allVehcleTypes = Enum.GetNames(i_Type);
+            string[] allEnumTypes = Enum.GetNames(i_Type);
             StringBuilder enumChoise = new StringBuilder(100);
             byte idx = 0;
-            foreach (string vehicleType in allVehcleTypes)
+            foreach (string vehicleType in allEnumTypes)
             {
                 enumChoise.AppendFormat("{0}. {1}{2}", idx++, vehicleType, Environment.NewLine);
             }
 
             return enumChoise.ToString();
         }
-        
+
         private void getEnumChoise<T>(Type i_Type, out T o_Choise) where T : struct
         {
             T userChoise;
@@ -93,9 +104,9 @@ namespace ConsoleUI
             o_Choise = userChoise;
         }
 
-        private Vehicle createNewVehicle( out eVehicleOption o_CurretVehicle)
+        private Vehicle createNewVehicle(out eVehicleOption o_CurretVehicle)
         {
-            string licenceNum, modelNum;
+            string licenceNum, modelName;
             Console.WriteLine("insert the licence number");
             licenceNum = Console.ReadLine();
             while (r_Garage.IsAlreadyInGarage(licenceNum))
@@ -108,8 +119,8 @@ namespace ConsoleUI
             Console.WriteLine("Insert your number of choice then press 'enter'");
             getEnumChoise(typeof(eVehicleOption), out eVehicleOption currentChoise);
             Console.WriteLine("Insert model for the {0}", currentChoise);
-            modelNum = Console.ReadLine();
-            Vehicle newVehicle = VehicleCreator.CreateVehicle(currentChoise, licenceNum, modelNum);
+            modelName = Console.ReadLine();
+            Vehicle newVehicle = VehicleCreator.CreateVehicle(currentChoise, licenceNum, modelName);
             o_CurretVehicle = currentChoise;
             return newVehicle;
         }
@@ -121,7 +132,7 @@ namespace ConsoleUI
             {
                 Console.WriteLine(r_Garage.MsgFullDetailsVehicle(Console.ReadLine()));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -144,12 +155,11 @@ namespace ConsoleUI
 
             Console.WriteLine("insert license number");
             licenseNumber = Console.ReadLine();
-            Console.WriteLine( EnumChoises(typeof(Client.eStatusInGarage)) );
+            Console.WriteLine(EnumChoises(typeof(Client.eStatusInGarage)));
             getEnumChoise(typeof(Client.eStatusInGarage), out Client.eStatusInGarage chosenStatus);
             try
             {
                 r_Garage.ChangeVehicleStatus(licenseNumber, chosenStatus);
-                
             }
             catch (Exception ex)
             {
@@ -160,18 +170,18 @@ namespace ConsoleUI
         private void chargeElectricVehicle()
         {
             string licenseNumber;
-            float chargingMinutesAmount;
+            float chargingHoursAmount;
             Console.WriteLine("insert license number");
             licenseNumber = Console.ReadLine();
             Console.WriteLine("insert amount of hours charging you want to add");
-            while (!float.TryParse(Console.ReadLine(), out chargingMinutesAmount))
+            while (!float.TryParse(Console.ReadLine(), out chargingHoursAmount))
             {
                 Console.WriteLine("wrong input, try again");
             }
 
             try
             {
-                r_Garage.ChargeBattary(licenseNumber, chargingMinutesAmount);
+                r_Garage.ChargeBattary(licenseNumber, chargingHoursAmount);
             }
             catch (ValueOutOfRangeException voore)
             {
@@ -194,30 +204,28 @@ namespace ConsoleUI
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
 
         private void createNewClient()
         {
             Vehicle newVehicle = createNewVehicle(out eVehicleOption curretVehicle);
             fillAndAddClientToTheGarage(newVehicle);
-            VehiclePropertise(newVehicle);
-            
+            vehiclePropertise(newVehicle);
+
             switch (curretVehicle)
             {
                 case eVehicleOption.FuelCar:
                 case eVehicleOption.ElecticCar:
-                    CarPropertise(newVehicle);
+                    carPropertise(newVehicle);
                     break;
                 case eVehicleOption.FuelMotorcycle:
                 case eVehicleOption.ElectricMotorcycle:
-                    MotorcyclePropertise(newVehicle);
+                    motorcyclePropertise(newVehicle);
                     break;
                 case eVehicleOption.FuelTrack:
-                    TrackPropertise(newVehicle);
+                    trackPropertise(newVehicle);
                     break;
             }
-
         }
 
         private void fillAndAddClientToTheGarage(Vehicle i_NewVehicle)
@@ -237,17 +245,18 @@ namespace ConsoleUI
             Console.WriteLine("insert license number");
             licenseNumber = Console.ReadLine();
             Console.WriteLine("insert the amount of fuel to add");
-            while(!float.TryParse(Console.ReadLine(), out fuelAmount))
+            while (!float.TryParse(Console.ReadLine(), out fuelAmount))
             {
                 Console.WriteLine("wrong input, try again");
             }
+
             Console.WriteLine(EnumChoises(typeof(eFuelType)));
             getEnumChoise(typeof(eFuelType), out eFuelType chosenTypeFuel);
             try
             {
                 r_Garage.RefuelVehicle(licenseNumber, fuelAmount, chosenTypeFuel);
             }
-            catch(ValueOutOfRangeException voore)
+            catch (ValueOutOfRangeException voore)
             {
                 Console.WriteLine(voore.Message);
             }
@@ -291,15 +300,15 @@ namespace ConsoleUI
         {
             float currentPercentOfEnergy;
             Console.WriteLine("insert current percent energy in your vehicle");
-            bool clientInsertLegalpercent = false;
-            while (!clientInsertLegalpercent)
+            bool clientInsertLegalPercent = false;
+            while (!clientInsertLegalPercent)
             {
                 if (float.TryParse(Console.ReadLine(), out currentPercentOfEnergy))
                 {
                     try
                     {
                         VehicleCreator.VehicleEnergyProperty(i_Vehicle, currentPercentOfEnergy);
-                        clientInsertLegalpercent = true;
+                        clientInsertLegalPercent = true;
                     }
                     catch (ValueOutOfRangeException voore)
                     {
@@ -313,13 +322,13 @@ namespace ConsoleUI
             }
         }
 
-        void VehiclePropertise(Vehicle i_Vehicle)
+        private void vehiclePropertise(Vehicle i_Vehicle)
         {
             wheelsProperty(i_Vehicle);
             setEnergyInVehicle(i_Vehicle);
         }
 
-        void CarPropertise(Vehicle i_Car) // its private ? -> need to be carPropertise
+        private void carPropertise(Vehicle i_Car)
         {
             Console.WriteLine("Insert plase number of doors between 2 - 5 and then press 'enter' (defualt is 2)");
             if (!byte.TryParse(Console.ReadLine(), out byte numOfDoors) || !(numOfDoors >= 2 && numOfDoors <= 5))
@@ -328,20 +337,20 @@ namespace ConsoleUI
             }
 
             Console.WriteLine("Now insert your car color");
-            Console.WriteLine("Insert your number of choice then press 'enter'"); // to do it in maybe another place the Msg. becuse if commeon.
+            Console.WriteLine("Insert your number of choice then press 'enter'");
             Console.WriteLine(EnumChoises(typeof(Car.eCarColor)));
             getEnumChoise(typeof(Car.eCarColor), out Car.eCarColor chosenColor);
 
             VehicleCreator.CarPropertise(i_Car, numOfDoors, chosenColor);
         }
 
-        void MotorcyclePropertise(Vehicle i_Moto)
+        private void motorcyclePropertise(Vehicle i_Moto)
         {
-            const int MaxEngieCapacity = 7_000;            
+            const int maxEngieCapacity = 7_000;
             Console.WriteLine(
                 "Insert plase Engine Capacity between 0 - {0} and then press 'enter' (defualt is 500)"
-                , MaxEngieCapacity);
-            if (!int.TryParse(Console.ReadLine(), out int engineCapacity) || !(engineCapacity >= 0 && engineCapacity <= 7_000))
+                , maxEngieCapacity);
+            if (!int.TryParse(Console.ReadLine(), out int engineCapacity) || !(engineCapacity >= 0 && engineCapacity <= maxEngieCapacity))
             {
                 engineCapacity = 500;
             }
@@ -352,10 +361,11 @@ namespace ConsoleUI
             VehicleCreator.MotorcyclePropertise(i_Moto, engineCapacity, typeOfLicense);
         }
 
-        void TrackPropertise(Vehicle i_Track)
+        private void trackPropertise(Vehicle i_Track)
         {
+            const float maxTrunkCapacity = 7_000;
             Console.WriteLine("Insert plase Trunk Capacity between 0 - 600,000 and then press 'enter' (defualt is 100,000)");
-            if (!float.TryParse(Console.ReadLine(), out float trunkCapacity) || !(trunkCapacity >= 0 && trunkCapacity <= 600_000f))
+            if (!float.TryParse(Console.ReadLine(), out float trunkCapacity) || !(trunkCapacity >= 0 && trunkCapacity <= maxTrunkCapacity))
             {
                 trunkCapacity = 100_000f;
             }
@@ -368,19 +378,6 @@ namespace ConsoleUI
 
             VehicleCreator.TrackPropertise(i_Track, trunkCapacity, isHaveCoolTrunk);
         }
-
-        private const string k_MenuMsg =
-@"
-Menu
-============== Insert the number of Action you want and then press 'enter ' ==============
-0. Exit
-1. Insert car to garage
-2. List of vehicles in progress , only licence number .  
-3. New vehicle status
-4. Fill untill Max wheel air to vehicle's
-5. Refuel fuel vehicle
-6. Charge electric vehicle
-7. Full data for onwer and vehicle";
 
         private enum eGarageAction : byte
         {
