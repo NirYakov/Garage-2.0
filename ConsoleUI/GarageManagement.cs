@@ -23,7 +23,7 @@ namespace ConsoleUI
             eGarageAction actionToDo;
             while (!quit)
             {
-                //Console.Clear();
+                
                 Console.WriteLine(k_MenuMsg);
                 actionToDo = (eGarageAction)(byte.TryParse(Console.ReadLine(), out byte userInputChoise) ? userInputChoise : outOfChoiseRange);
                 quit = doActionInGarage(actionToDo);
@@ -63,6 +63,8 @@ namespace ConsoleUI
                     Console.WriteLine("wrong input , insert again");
                     break;
             }
+
+            Console.Clear();
 
             return quit;
         }
@@ -161,7 +163,7 @@ namespace ConsoleUI
             float chargingMinutesAmount;
             Console.WriteLine("insert license number");
             licenseNumber = Console.ReadLine();
-            Console.WriteLine("insert amount of minutes charging you want to add");
+            Console.WriteLine("insert amount of hours charging you want to add");
             while (!float.TryParse(Console.ReadLine(), out chargingMinutesAmount))
             {
                 Console.WriteLine("wrong input, try again");

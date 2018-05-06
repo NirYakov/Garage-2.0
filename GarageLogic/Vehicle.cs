@@ -54,7 +54,7 @@ namespace GarageLogic
         public void FillEnergy(float i_AmonutOfEnergy, string i_EnergyType)
         {
             EngineSystem.FillEnergy(i_AmonutOfEnergy, i_EnergyType);
-            m_PercentOfEnergy = 100 * EngineSystem.CurrentEnergyStatus / EngineSystem.MaxEnergyCapacity;
+            m_PercentOfEnergy = (100 * EngineSystem.CurrentEnergyStatus) / EngineSystem.MaxEnergyCapacity;
         }
 
         public string Model
