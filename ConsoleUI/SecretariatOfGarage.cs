@@ -104,7 +104,8 @@ namespace ConsoleUI
         {
             Vehicle newVehicle = createNewVehicle(out eVehicleOption curretVehicle);
             fillAndAddClintToTheGarage(newVehicle);
-
+            VehiclePropertise(newVehicle);
+            
             switch (curretVehicle)
             {
                 case eVehicleOption.FuelCar:
@@ -134,17 +135,32 @@ namespace ConsoleUI
 
         void VehiclePropertise(Vehicle i_Vehicle)
         {
+            bool clientInsertLegalPresser = false;
             string manufacturerNameOfWheels;
+            float airPressure = 0;
             Console.WriteLine("insert name of manufacturer of wheels");
             manufacturerNameOfWheels = Console.ReadLine();
             Console.WriteLine("insert air pressure that you want, if is more than maximum air pressure will be 0");
 
-            if (!float.TryParse(Console.ReadLine(), out float airPressure) || !(airPressure >= 0 && airPressure <= i_Vehicle.MaxAirInWheels))
+            while(!clientInsertLegalPresser)
             {
-                airPressure = 0;
+                if (float.TryParse(Console.ReadLine(), out airPressure))
+                {
+                    try
+                    {
+                        VehicleCreator.VehiclePropertise(i_Vehicle, manufacturerNameOfWheels, airPressure);
+                        clientInsertLegalPresser = true;
+                    }
+                    catch (ValueOutOfRangeException voore)
+                    {
+                        Console.WriteLine(voore);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("it ilegal input try again");
+                }
             }
-
-            VehicleCreator.VehiclePropertise(i_Vehicle, manufacturerNameOfWheels, airPressure);
         }
 
         void CarPropertise(Vehicle i_Car) // its private ? -> need to be carPropertise

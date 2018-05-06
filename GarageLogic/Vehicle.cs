@@ -75,6 +75,15 @@ namespace GarageLogic
             }            
         }
 
+        public void SetWheelsProperty(string i_ManufacturerName, float i_CurrentAirPressure)
+        {
+            foreach (Wheel wheel in m_ListOfWheels)
+            {
+                wheel.ManufacturerName = i_ManufacturerName;
+                wheel.AirInflation(i_CurrentAirPressure);
+            }
+        }
+
         public override string ToString()
         {
             StringBuilder wheels = new StringBuilder();

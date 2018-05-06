@@ -14,9 +14,9 @@ namespace GarageLogic
         
         public Wheel(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
         {
-            this.ManufacturerName = i_ManufacturerName;
-            this.MaxAirPressure = i_MaxAirPressure;
-            this.CurrentAirPressure = i_CurrentAirPressure;
+            ManufacturerName = i_ManufacturerName;
+            MaxAirPressure = i_MaxAirPressure;
+            CurrentAirPressure = i_CurrentAirPressure;
         }
 
         public string ManufacturerName
@@ -38,17 +38,17 @@ namespace GarageLogic
             {
                 return m_CurrentAirPressure;
             }
+
             set
             {
-                if(value <= m_MaxAirPressure)
+                if(value <= m_MaxAirPressure && value >= 0)
                 {
                     m_CurrentAirPressure = value;
                 }
                 else
                 {
                     throw new ValueOutOfRangeException(null, m_MaxAirPressure, 0);
-                }
-                
+                }                
             }
         }
 
@@ -67,7 +67,7 @@ namespace GarageLogic
 
         public void AirInflation(float i_AmountOfAirToAdd)
         {
-            if ((m_CurrentAirPressure + i_AmountOfAirToAdd) <= m_MaxAirPressure)
+            if ((m_CurrentAirPressure + i_AmountOfAirToAdd) <= m_MaxAirPressure && i_AmountOfAirToAdd >= 0)
             {
                 m_CurrentAirPressure += i_AmountOfAirToAdd;
             }

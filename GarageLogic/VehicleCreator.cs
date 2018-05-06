@@ -35,8 +35,7 @@ namespace GarageLogic
 
         public static void VehiclePropertise(Vehicle i_Vehicle, string i_ManufacturerName, float i_CurrentAirPressure)
         {
-            i_Vehicle.FillAirInWheels(i_CurrentAirPressure);
-            i_Vehicle.FillNameOfWheels(i_ManufacturerName);
+            i_Vehicle.SetWheelsProperty(i_ManufacturerName, i_CurrentAirPressure);
         }
 
         public static void CarPropertise(Vehicle i_Car, byte i_NumOfDoors, Car.eCarColor i_CarColor)
